@@ -2,20 +2,12 @@
 <Root MajorVersion="0" MinorVersion="33">
   <CompositeFile CompositeFileTopName="led_board" CanBeSetAsTop="true" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1494827027"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1494827027"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1494827027"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1495035448"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1495035448"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1495035448"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip/led_board_processing_system7_0_0/led_board_processing_system7_0_0.xci" Type="IP">
         <Instance HierarchyPath="processing_system7_0"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/led_board_xlconcat_0_0/led_board_xlconcat_0_0.xci" Type="IP">
-        <Instance HierarchyPath="xlconcat_0"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -29,15 +21,15 @@
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip/led_board_axi_led_board_0_3/led_board_axi_led_board_0_3.xci" Type="IP">
-        <Instance HierarchyPath="axi_led_board_0"/>
+      <File Name="ip/led_board_axi_dot_led_0_2/led_board_axi_dot_led_0_2.xci" Type="IP">
+        <Instance HierarchyPath="axi_dot_led_0"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip/led_board_processing_system7_0_axi_periph_1/led_board_processing_system7_0_axi_periph_1.xci" Type="IP">
+      <File Name="ip/led_board_processing_system7_0_axi_periph_2/led_board_processing_system7_0_axi_periph_2.xci" Type="IP">
         <Instance HierarchyPath="processing_system7_0_axi_periph"/>
         <Properties IsEditable="false" IsVisible="false" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
@@ -45,7 +37,7 @@
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip/led_board_rst_processing_system7_0_100M_1/led_board_rst_processing_system7_0_100M_1.xci" Type="IP">
+      <File Name="ip/led_board_rst_processing_system7_0_100M_2/led_board_rst_processing_system7_0_100M_2.xci" Type="IP">
         <Instance HierarchyPath="rst_processing_system7_0_100M"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
@@ -53,8 +45,16 @@
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip/led_board_led_board_sout_0_0/led_board_led_board_sout_0_0.xci" Type="IP">
-        <Instance HierarchyPath="led_board_sout_0"/>
+      <File Name="ip/led_board_fifo_generator_0_0/led_board_fifo_generator_0_0.xci" Type="IP">
+        <Instance HierarchyPath="fifo_generator_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/led_board_xlconcat_1_0/led_board_xlconcat_1_0.xci" Type="IP">
+        <Instance HierarchyPath="xlconcat_1"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -69,8 +69,24 @@
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip/led_board_xlconcat_1_0/led_board_xlconcat_1_0.xci" Type="IP">
-        <Instance HierarchyPath="xlconcat_1"/>
+      <File Name="ip/led_board_led_board_sout_0_0/led_board_led_board_sout_0_0.xci" Type="IP">
+        <Instance HierarchyPath="led_board_sout_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/led_board_dot_led_split_0_0/led_board_dot_led_split_0_0.xci" Type="IP">
+        <Instance HierarchyPath="dot_led_split_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/led_board_xlconcat_0_0/led_board_xlconcat_0_0.xci" Type="IP">
+        <Instance HierarchyPath="xlconcat_0"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>

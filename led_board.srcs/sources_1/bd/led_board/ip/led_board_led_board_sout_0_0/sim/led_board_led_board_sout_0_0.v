@@ -54,45 +54,50 @@
 
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module led_board_led_board_sout_0_0 (
-  CLK_In,
-  Addr_In,
+  CLK,
+  ADDR,
   RData,
   GData,
-  Request,
-  Clear,
-  Addr_Out,
+  ADDR_Out,
   ALE,
-  RD,
-  GD,
+  DR,
+  DG,
   WE,
-  CLK_Out
+  CLK_Out,
+  rd_en,
+  valid,
+  rst
 );
 
-input wire CLK_In;
-input wire [3 : 0] Addr_In;
+(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK CLK" *)
+input wire CLK;
+input wire [3 : 0] ADDR;
 input wire [31 : 0] RData;
 input wire [31 : 0] GData;
-input wire Request;
-output wire Clear;
-output wire [3 : 0] Addr_Out;
+output wire [3 : 0] ADDR_Out;
 output wire ALE;
-output wire RD;
-output wire GD;
+output wire DR;
+output wire DG;
 output wire WE;
 output wire CLK_Out;
+output wire rd_en;
+input wire valid;
+(* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 rst RST" *)
+input wire rst;
 
   led_board_sout inst (
-    .CLK_In(CLK_In),
-    .Addr_In(Addr_In),
+    .CLK(CLK),
+    .ADDR(ADDR),
     .RData(RData),
     .GData(GData),
-    .Request(Request),
-    .Clear(Clear),
-    .Addr_Out(Addr_Out),
+    .ADDR_Out(ADDR_Out),
     .ALE(ALE),
-    .RD(RD),
-    .GD(GD),
+    .DR(DR),
+    .DG(DG),
     .WE(WE),
-    .CLK_Out(CLK_Out)
+    .CLK_Out(CLK_Out),
+    .rd_en(rd_en),
+    .valid(valid),
+    .rst(rst)
   );
 endmodule

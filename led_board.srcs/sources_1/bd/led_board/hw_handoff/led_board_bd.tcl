@@ -40,7 +40,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 
 # The design that will be created by this Tcl script contains the following 
 # module references:
-# led_board_sout, prescaler
+# dot_led_split, led_board_sout, prescaler
 
 # Please add the sources of those modules before sourcing this Tcl script.
 
@@ -162,11 +162,51 @@ proc create_root_design { parentCell } {
   # Create interface ports
 
   # Create ports
-  set led_data_o [ create_bd_port -dir O -from 10 -to 0 -type data led_data_o ]
-  set leds_4bits_tri_o [ create_bd_port -dir O -from 3 -to 0 -type data leds_4bits_tri_o ]
+  set dot_led_addr [ create_bd_port -dir O -from 3 -to 0 dot_led_addr ]
+  set dot_led_ale [ create_bd_port -dir O dot_led_ale ]
+  set dot_led_clk [ create_bd_port -dir O dot_led_clk ]
+  set dot_led_dg [ create_bd_port -dir O dot_led_dg ]
+  set dot_led_dr [ create_bd_port -dir O dot_led_dr ]
+  set dot_led_ram [ create_bd_port -dir O dot_led_ram ]
+  set dot_led_se [ create_bd_port -dir O dot_led_se ]
+  set dot_led_we [ create_bd_port -dir O dot_led_we ]
+  set leds_6bits_tri_o [ create_bd_port -dir O -from 5 -to 0 leds_6bits_tri_o ]
 
-  # Create instance: axi_led_board_0, and set properties
-  set axi_led_board_0 [ create_bd_cell -type ip -vlnv chibiegg.net:chibiegg:axi_led_board:1.0 axi_led_board_0 ]
+  # Create instance: axi_dot_led_0, and set properties
+  set axi_dot_led_0 [ create_bd_cell -type ip -vlnv chibiegg.net:chibiegg:axi_dot_led:1.0.3 axi_dot_led_0 ]
+
+  # Create instance: dot_led_split_0, and set properties
+  set block_name dot_led_split
+  set block_cell_name dot_led_split_0
+  if { [catch {set dot_led_split_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+     catch {common::send_msg_id "BD_TCL-105" "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   } elseif { $dot_led_split_0 eq "" } {
+     catch {common::send_msg_id "BD_TCL-106" "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   }
+  
+  # Create instance: fifo_generator_0, and set properties
+  set fifo_generator_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:fifo_generator:13.1 fifo_generator_0 ]
+  set_property -dict [ list \
+CONFIG.Data_Count_Width {5} \
+CONFIG.Empty_Threshold_Assert_Value {4} \
+CONFIG.Empty_Threshold_Negate_Value {5} \
+CONFIG.Fifo_Implementation {Independent_Clocks_Block_RAM} \
+CONFIG.Full_Flags_Reset_Value {1} \
+CONFIG.Full_Threshold_Assert_Value {31} \
+CONFIG.Full_Threshold_Negate_Value {30} \
+CONFIG.Input_Data_Width {68} \
+CONFIG.Input_Depth {32} \
+CONFIG.Output_Data_Width {68} \
+CONFIG.Output_Depth {32} \
+CONFIG.Overflow_Flag {true} \
+CONFIG.Performance_Options {First_Word_Fall_Through} \
+CONFIG.Read_Data_Count_Width {5} \
+CONFIG.Reset_Type {Asynchronous_Reset} \
+CONFIG.Valid_Flag {true} \
+CONFIG.Write_Data_Count_Width {5} \
+ ] $fifo_generator_0
 
   # Create instance: led_board_sout_0, and set properties
   set block_name led_board_sout
@@ -1073,82 +1113,108 @@ CONFIG.NUM_MI {1} \
   # Create instance: xlconcat_0, and set properties
   set xlconcat_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_0 ]
   set_property -dict [ list \
-CONFIG.NUM_PORTS {4} \
+CONFIG.IN0_WIDTH {4} \
+CONFIG.NUM_PORTS {3} \
  ] $xlconcat_0
 
   # Create instance: xlconcat_1, and set properties
   set xlconcat_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_1 ]
   set_property -dict [ list \
-CONFIG.IN2_WIDTH {4} \
-CONFIG.NUM_PORTS {8} \
+CONFIG.IN0_WIDTH {4} \
+CONFIG.IN1_WIDTH {32} \
+CONFIG.IN2_WIDTH {32} \
+CONFIG.NUM_PORTS {3} \
  ] $xlconcat_1
 
   # Create interface connections
   connect_bd_intf_net -intf_net processing_system7_0_M_AXI_GP0 [get_bd_intf_pins processing_system7_0/M_AXI_GP0] [get_bd_intf_pins processing_system7_0_axi_periph/S00_AXI]
-  connect_bd_intf_net -intf_net processing_system7_0_axi_periph_M00_AXI [get_bd_intf_pins axi_led_board_0/S_AXI] [get_bd_intf_pins processing_system7_0_axi_periph/M00_AXI]
+  connect_bd_intf_net -intf_net processing_system7_0_axi_periph_M00_AXI [get_bd_intf_pins axi_dot_led_0/S_AXI] [get_bd_intf_pins processing_system7_0_axi_periph/M00_AXI]
 
   # Create port connections
-  connect_bd_net -net axi_led_board_0_Addr [get_bd_pins axi_led_board_0/Addr] [get_bd_pins led_board_sout_0/Addr_In]
-  connect_bd_net -net axi_led_board_0_GData [get_bd_pins axi_led_board_0/GData] [get_bd_pins led_board_sout_0/GData]
-  connect_bd_net -net axi_led_board_0_RAM_Sel [get_bd_pins axi_led_board_0/RAM_Sel] [get_bd_pins xlconcat_1/In1]
-  connect_bd_net -net axi_led_board_0_RData [get_bd_pins axi_led_board_0/RData] [get_bd_pins led_board_sout_0/RData]
-  connect_bd_net -net axi_led_board_0_Request [get_bd_pins axi_led_board_0/Request] [get_bd_pins led_board_sout_0/Request] [get_bd_pins xlconcat_0/In3]
-  connect_bd_net -net axi_led_board_0_SE [get_bd_pins axi_led_board_0/SE] [get_bd_pins xlconcat_1/In0]
-  connect_bd_net -net led_board_sout_0_ALE [get_bd_pins led_board_sout_0/ALE] [get_bd_pins xlconcat_0/In2] [get_bd_pins xlconcat_1/In7]
-  connect_bd_net -net led_board_sout_0_Addr_Out [get_bd_pins led_board_sout_0/Addr_Out] [get_bd_pins xlconcat_1/In2]
-  connect_bd_net -net led_board_sout_0_CLK_Out [get_bd_pins led_board_sout_0/CLK_Out] [get_bd_pins xlconcat_0/In0] [get_bd_pins xlconcat_1/In4]
-  connect_bd_net -net led_board_sout_0_Clear [get_bd_pins axi_led_board_0/Clear] [get_bd_pins led_board_sout_0/Clear]
-  connect_bd_net -net led_board_sout_0_GD [get_bd_pins led_board_sout_0/GD] [get_bd_pins xlconcat_1/In3]
-  connect_bd_net -net led_board_sout_0_RD [get_bd_pins led_board_sout_0/RD] [get_bd_pins xlconcat_0/In1] [get_bd_pins xlconcat_1/In6]
-  connect_bd_net -net led_board_sout_0_WE [get_bd_pins led_board_sout_0/WE] [get_bd_pins xlconcat_1/In5]
-  connect_bd_net -net prescaler_0_clk_out [get_bd_pins led_board_sout_0/CLK_In] [get_bd_pins prescaler_0/clk_out]
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins axi_led_board_0/s_axi_aclk] [get_bd_pins prescaler_0/clk_in] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0_axi_periph/ACLK] [get_bd_pins processing_system7_0_axi_periph/M00_ACLK] [get_bd_pins processing_system7_0_axi_periph/S00_ACLK] [get_bd_pins rst_processing_system7_0_100M/slowest_sync_clk]
+  connect_bd_net -net axi_dot_led_0_ADDR [get_bd_pins axi_dot_led_0/ADDR] [get_bd_pins xlconcat_1/In0]
+  connect_bd_net -net axi_dot_led_0_GData [get_bd_pins axi_dot_led_0/GData] [get_bd_pins xlconcat_1/In1]
+  connect_bd_net -net axi_dot_led_0_RAM [get_bd_ports dot_led_ram] [get_bd_pins axi_dot_led_0/RAM]
+  connect_bd_net -net axi_dot_led_0_RData [get_bd_pins axi_dot_led_0/RData] [get_bd_pins xlconcat_1/In2]
+  connect_bd_net -net axi_dot_led_0_SE [get_bd_ports dot_led_se] [get_bd_pins axi_dot_led_0/SE]
+  connect_bd_net -net axi_dot_led_0_wr_en [get_bd_pins axi_dot_led_0/wr_en] [get_bd_pins fifo_generator_0/wr_en]
+  connect_bd_net -net dot_led_split_0_ADDR [get_bd_pins dot_led_split_0/ADDR] [get_bd_pins led_board_sout_0/ADDR] [get_bd_pins xlconcat_0/In0]
+  connect_bd_net -net dot_led_split_0_GData [get_bd_pins dot_led_split_0/GData] [get_bd_pins led_board_sout_0/GData]
+  connect_bd_net -net dot_led_split_0_RData [get_bd_pins dot_led_split_0/RData] [get_bd_pins led_board_sout_0/RData]
+  connect_bd_net -net fifo_generator_0_dout [get_bd_pins dot_led_split_0/data] [get_bd_pins fifo_generator_0/dout]
+  connect_bd_net -net fifo_generator_0_full [get_bd_pins axi_dot_led_0/full] [get_bd_pins fifo_generator_0/full]
+  connect_bd_net -net fifo_generator_0_valid [get_bd_pins fifo_generator_0/valid] [get_bd_pins led_board_sout_0/valid] [get_bd_pins xlconcat_0/In1]
+  connect_bd_net -net led_board_sout_0_ADDR_Out [get_bd_ports dot_led_addr] [get_bd_pins led_board_sout_0/ADDR_Out]
+  connect_bd_net -net led_board_sout_0_ALE [get_bd_ports dot_led_ale] [get_bd_pins led_board_sout_0/ALE]
+  connect_bd_net -net led_board_sout_0_CLK_Out [get_bd_ports dot_led_clk] [get_bd_pins led_board_sout_0/CLK_Out] [get_bd_pins xlconcat_0/In2]
+  connect_bd_net -net led_board_sout_0_DG [get_bd_ports dot_led_dg] [get_bd_pins led_board_sout_0/DG]
+  connect_bd_net -net led_board_sout_0_DR [get_bd_ports dot_led_dr] [get_bd_pins led_board_sout_0/DR]
+  connect_bd_net -net led_board_sout_0_WE [get_bd_ports dot_led_we] [get_bd_pins led_board_sout_0/WE]
+  connect_bd_net -net led_board_sout_0_rd_en [get_bd_pins fifo_generator_0/rd_en] [get_bd_pins led_board_sout_0/rd_en]
+  connect_bd_net -net prescaler_0_clk_out [get_bd_pins fifo_generator_0/rd_clk] [get_bd_pins led_board_sout_0/CLK] [get_bd_pins prescaler_0/clk_out]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins axi_dot_led_0/s_axi_aclk] [get_bd_pins fifo_generator_0/wr_clk] [get_bd_pins prescaler_0/clk_in] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0_axi_periph/ACLK] [get_bd_pins processing_system7_0_axi_periph/M00_ACLK] [get_bd_pins processing_system7_0_axi_periph/S00_ACLK] [get_bd_pins rst_processing_system7_0_100M/slowest_sync_clk]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_processing_system7_0_100M/ext_reset_in]
   connect_bd_net -net rst_processing_system7_0_100M_interconnect_aresetn [get_bd_pins processing_system7_0_axi_periph/ARESETN] [get_bd_pins rst_processing_system7_0_100M/interconnect_aresetn]
-  connect_bd_net -net rst_processing_system7_0_100M_peripheral_aresetn [get_bd_pins axi_led_board_0/s_axi_aresetn] [get_bd_pins processing_system7_0_axi_periph/M00_ARESETN] [get_bd_pins processing_system7_0_axi_periph/S00_ARESETN] [get_bd_pins rst_processing_system7_0_100M/peripheral_aresetn]
-  connect_bd_net -net xlconcat_0_dout [get_bd_ports leds_4bits_tri_o] [get_bd_pins xlconcat_0/dout]
-  connect_bd_net -net xlconcat_1_dout [get_bd_ports led_data_o] [get_bd_pins xlconcat_1/dout]
+  connect_bd_net -net rst_processing_system7_0_100M_peripheral_aresetn [get_bd_pins axi_dot_led_0/s_axi_aresetn] [get_bd_pins processing_system7_0_axi_periph/M00_ARESETN] [get_bd_pins processing_system7_0_axi_periph/S00_ARESETN] [get_bd_pins rst_processing_system7_0_100M/peripheral_aresetn]
+  connect_bd_net -net rst_processing_system7_0_100M_peripheral_reset [get_bd_pins fifo_generator_0/rst] [get_bd_pins led_board_sout_0/rst] [get_bd_pins rst_processing_system7_0_100M/peripheral_reset]
+  connect_bd_net -net xlconcat_0_dout [get_bd_ports leds_6bits_tri_o] [get_bd_pins xlconcat_0/dout]
+  connect_bd_net -net xlconcat_1_dout [get_bd_pins fifo_generator_0/din] [get_bd_pins xlconcat_1/dout]
 
   # Create address segments
-  create_bd_addr_seg -range 0x00010000 -offset 0x43C00000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs axi_led_board_0/S_AXI/S_AXI_reg] SEG_axi_led_board_0_S_AXI_reg
+  create_bd_addr_seg -range 0x00001000 -offset 0x43C00000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs axi_dot_led_0/S_AXI/S_AXI_reg] SEG_axi_dot_led_0_S_AXI_reg
 
   # Perform GUI Layout
   regenerate_bd_layout -layout_string {
    guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
 #  -string -flagsOSRD
-preplace portBus led_data_o -pg 1 -y -30 -defaultsOSRD
-preplace portBus leds_4bits_tri_o -pg 1 -y 190 -defaultsOSRD
-preplace inst led_board_sout_0 -pg 1 -lvl 2 -y 110 -defaultsOSRD
-preplace inst rst_processing_system7_0_100M -pg 1 -lvl 1 -y 610 -defaultsOSRD
-preplace inst prescaler_0 -pg 1 -lvl 2 -y 280 -defaultsOSRD
-preplace inst xlconcat_0 -pg 1 -lvl 3 -y 190 -defaultsOSRD
-preplace inst xlconcat_1 -pg 1 -lvl 3 -y -70 -defaultsOSRD
-preplace inst axi_led_board_0 -pg 1 -lvl 3 -y 520 -defaultsOSRD
-preplace inst processing_system7_0_axi_periph -pg 1 -lvl 2 -y 490 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 1 -y 420 -defaultsOSRD
-preplace netloc led_board_sout_0_CLK_Out 1 2 1 800
-preplace netloc axi_led_board_0_SE 1 2 2 780 -210 1130
-preplace netloc led_board_sout_0_ALE 1 2 1 850
+preplace port dot_led_we -pg 1 -y 760 -defaultsOSRD
+preplace port dot_led_ale -pg 1 -y 700 -defaultsOSRD
+preplace port dot_led_clk -pg 1 -y 780 -defaultsOSRD
+preplace port dot_led_se -pg 1 -y 300 -defaultsOSRD
+preplace port dot_led_dr -pg 1 -y 670 -defaultsOSRD
+preplace port dot_led_ram -pg 1 -y 320 -defaultsOSRD
+preplace port dot_led_dg -pg 1 -y 740 -defaultsOSRD
+preplace portBus dot_led_addr -pg 1 -y 720 -defaultsOSRD
+preplace portBus leds_6bits_tri_o -pg 1 -y 490 -defaultsOSRD
+preplace inst led_board_sout_0 -pg 1 -lvl 5 -y 820 -defaultsOSRD
+preplace inst axi_dot_led_0 -pg 1 -lvl 3 -y 380 -defaultsOSRD
+preplace inst dot_led_split_0 -pg 1 -lvl 4 -y 740 -defaultsOSRD
+preplace inst rst_processing_system7_0_100M -pg 1 -lvl 1 -y 90 -defaultsOSRD
+preplace inst prescaler_0 -pg 1 -lvl 4 -y 610 -defaultsOSRD
+preplace inst xlconcat_0 -pg 1 -lvl 6 -y 560 -defaultsOSRD
+preplace inst xlconcat_1 -pg 1 -lvl 4 -y 390 -defaultsOSRD
+preplace inst fifo_generator_0 -pg 1 -lvl 5 -y 520 -defaultsOSRD
+preplace inst processing_system7_0_axi_periph -pg 1 -lvl 2 -y 350 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 1 -y 280 -defaultsOSRD
+preplace netloc led_board_sout_0_CLK_Out 1 5 2 NJ 780 N
+preplace netloc led_board_sout_0_rd_en 1 4 2 1310 680 1600
+preplace netloc led_board_sout_0_ALE 1 5 2 NJ 700 NJ
+preplace netloc axi_dot_led_0_RAM 1 3 4 NJ 310 NJ 310 NJ 310 NJ
 preplace netloc processing_system7_0_axi_periph_M00_AXI 1 2 1 N
-preplace netloc led_board_sout_0_GD 1 2 1 790
-preplace netloc axi_led_board_0_RData 1 1 3 440 370 NJ 370 1090
 preplace netloc processing_system7_0_M_AXI_GP0 1 1 1 N
-preplace netloc xlconcat_1_dout 1 3 1 1140
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 2 30 520 410
-preplace netloc led_board_sout_0_Clear 1 2 1 820
-preplace netloc rst_processing_system7_0_100M_peripheral_aresetn 1 1 2 460 620 840
-preplace netloc led_board_sout_0_RD 1 2 1 830
-preplace netloc axi_led_board_0_Request 1 1 3 480 220 840 110 1140
-preplace netloc xlconcat_0_dout 1 3 1 N
-preplace netloc axi_led_board_0_RAM_Sel 1 2 2 850 -190 1120
-preplace netloc axi_led_board_0_Addr 1 1 3 460 350 NJ 350 1100
-preplace netloc led_board_sout_0_WE 1 2 1 810
-preplace netloc axi_led_board_0_GData 1 1 3 470 360 NJ 360 1110
-preplace netloc led_board_sout_0_Addr_Out 1 2 1 780
-preplace netloc rst_processing_system7_0_100M_interconnect_aresetn 1 1 1 420
-preplace netloc processing_system7_0_FCLK_CLK0 1 0 3 20 320 430 610 800
-preplace netloc prescaler_0_clk_out 1 1 2 450 230 790
-levelinfo -pg 1 0 220 630 970 1160 -top -220 -bot 700
+preplace netloc led_board_sout_0_DR 1 5 2 NJ 670 NJ
+preplace netloc axi_dot_led_0_SE 1 3 4 NJ 290 NJ 290 NJ 290 NJ
+preplace netloc dot_led_split_0_ADDR 1 4 2 1300 660 NJ
+preplace netloc xlconcat_1_dout 1 4 1 1300
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 2 0 0 390
+preplace netloc led_board_sout_0_DG 1 5 2 NJ 740 NJ
+preplace netloc axi_dot_led_0_GData 1 3 1 N
+preplace netloc fifo_generator_0_full 1 2 3 740 260 NJ 260 1320
+preplace netloc rst_processing_system7_0_100M_peripheral_aresetn 1 1 2 400 210 NJ
+preplace netloc rst_processing_system7_0_100M_peripheral_reset 1 1 4 NJ 90 NJ 90 NJ 90 1270
+preplace netloc fifo_generator_0_valid 1 4 2 1320 670 1600
+preplace netloc xlconcat_0_dout 1 6 1 1850
+preplace netloc led_board_sout_0_WE 1 5 2 NJ 760 NJ
+preplace netloc fifo_generator_0_dout 1 3 2 1010 530 NJ
+preplace netloc dot_led_split_0_RData 1 4 1 1260
+preplace netloc rst_processing_system7_0_100M_interconnect_aresetn 1 1 1 410
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 5 10 380 420 230 720 280 990 670 NJ
+preplace netloc axi_dot_led_0_wr_en 1 3 2 NJ 320 1310
+preplace netloc dot_led_split_0_GData 1 4 1 1250
+preplace netloc axi_dot_led_0_RData 1 3 1 N
+preplace netloc led_board_sout_0_ADDR_Out 1 5 2 1630 720 NJ
+preplace netloc prescaler_0_clk_out 1 4 1 1290
+preplace netloc axi_dot_led_0_ADDR 1 3 1 N
+levelinfo -pg 1 -20 200 570 860 1130 1460 1760 1870 -top -10 -bot 930
 ",
 }
 
