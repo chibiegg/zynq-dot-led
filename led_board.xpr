@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="12" Path="/home/vivado/PYNQ/Pynq-Z1/vivado/projects/led_board/led_board.xpr">
+<Project Version="7" Minor="12" Path="/home/chibiegg/vivado/projects/zynq-dot-led/led_board.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="6fa8fe35d6e748ea9218e17adb5b98cc"/>
@@ -19,6 +19,7 @@
     <Option Name="BoardPart" Val=""/>
     <Option Name="ActiveSimSet" Val="sout_tb"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
+    <Option Name="IPRepoPath" Val="$PPRDIR/ip/dot_led_vdma/dot_led_vdma_1.0"/>
     <Option Name="IPRepoPath" Val="$PPRDIR/ip/axi_dot_led/axi_dot_led_1.0"/>
     <Option Name="IPRepoPath" Val="$PPRDIR/ip/axi_led_board_1.0"/>
     <Option Name="EnableCoreContainer" Val="FALSE"/>
@@ -76,22 +77,6 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="led_board.bd" FileRelPathName="ip/led_board_xlconcat_0_0/led_board_xlconcat_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="led_board.bd" FileRelPathName="ip/led_board_dot_led_split_0_0/led_board_dot_led_split_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="led_board.bd" FileRelPathName="ip/led_board_led_board_sout_0_0/led_board_led_board_sout_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="led_board.bd" FileRelPathName="ip/led_board_prescaler_0_0/led_board_prescaler_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="led_board.bd" FileRelPathName="ip/led_board_xlconcat_1_0/led_board_xlconcat_1_0.xci"/>
-        <CompFileExtendedInfo CompFileName="led_board.bd" FileRelPathName="ip/led_board_fifo_generator_0_0/led_board_fifo_generator_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="led_board.bd" FileRelPathName="ip/led_board_rst_processing_system7_0_100M_2/led_board_rst_processing_system7_0_100M_2.xci"/>
-        <CompFileExtendedInfo CompFileName="led_board.bd" FileRelPathName="ip/led_board_processing_system7_0_axi_periph_2/led_board_processing_system7_0_axi_periph_2.xci"/>
-        <CompFileExtendedInfo CompFileName="led_board.bd" FileRelPathName="ip/led_board_axi_dot_led_0_2/led_board_axi_dot_led_0_2.xci"/>
-        <CompFileExtendedInfo CompFileName="led_board.bd" FileRelPathName="hdl/led_board.v"/>
-        <CompFileExtendedInfo CompFileName="led_board.bd" FileRelPathName="ip/led_board_processing_system7_0_0/led_board_processing_system7_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="led_board.bd" FileRelPathName="led_board_ooc.xdc"/>
-        <CompFileExtendedInfo CompFileName="led_board.bd" FileRelPathName="hw_handoff/led_board_bd.tcl"/>
-        <CompFileExtendedInfo CompFileName="led_board.bd" FileRelPathName="hdl/led_board.hwdef"/>
-        <CompFileExtendedInfo CompFileName="led_board.bd" FileRelPathName="hw_handoff/led_board.hwh"/>
-        <CompFileExtendedInfo CompFileName="led_board.bd" FileRelPathName="ip/led_board_auto_pc_0/led_board_auto_pc_0.xci"/>
       </File>
       <File Path="$PSRCDIR/sources_1/bd/led_board/hdl/led_board_wrapper.v">
         <FileInfo>
