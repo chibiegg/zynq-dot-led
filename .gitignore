@@ -2,7 +2,7 @@
 *.runs/
 webtalk/
 *.log
-
+*.tmp/
 
 # editor temporary files
 .*.swp

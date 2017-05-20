@@ -57,18 +57,16 @@ module led_board_xlconcat_0_0 (
   In0,
   In1,
   In2,
-  In3,
   dout
 );
 
-input wire [0 : 0] In0;
+input wire [3 : 0] In0;
 input wire [0 : 0] In1;
 input wire [0 : 0] In2;
-input wire [0 : 0] In3;
-output wire [3 : 0] dout;
+output wire [5 : 0] dout;
 
   xlconcat #(
-    .IN0_WIDTH(1),
+    .IN0_WIDTH(4),
     .IN1_WIDTH(1),
     .IN2_WIDTH(1),
     .IN3_WIDTH(1),
@@ -100,13 +98,13 @@ output wire [3 : 0] dout;
     .IN29_WIDTH(1),
     .IN30_WIDTH(1),
     .IN31_WIDTH(1),
-    .dout_width(4),
-    .NUM_PORTS(4)
+    .dout_width(6),
+    .NUM_PORTS(3)
   ) inst (
     .In0(In0),
     .In1(In1),
     .In2(In2),
-    .In3(In3),
+    .In3(1'B0),
     .In4(1'B0),
     .In5(1'B0),
     .In6(1'B0),

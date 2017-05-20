@@ -1,34 +1,54 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.1 (lin64) Build 1538259 Fri Apr  8 15:45:23 MDT 2016
-//Date        : Mon May 15 05:43:40 2017
-//Host        : 23b712d23b45 running 64-bit unknown
+//Date        : Wed May 17 15:37:19 2017
+//Host        : 2c1b35e64c66 running 64-bit unknown
 //Command     : generate_target led_board.bd
 //Design      : led_board
 //Purpose     : IP block netlist
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "led_board,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=led_board,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=10,numReposBlks=8,numNonXlnxBlks=3,numHierBlks=2,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=2,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=5,da_board_cnt=1,synth_mode=Global}" *) (* HW_HANDOFF = "led_board.hwdef" *) 
+(* CORE_GENERATION_INFO = "led_board,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=led_board,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=12,numReposBlks=10,numNonXlnxBlks=4,numHierBlks=2,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=7,da_board_cnt=1,synth_mode=Global}" *) (* HW_HANDOFF = "led_board.hwdef" *) 
 module led_board
-   (led_data_o,
-    leds_4bits_tri_o);
-  output [10:0]led_data_o;
-  output [3:0]leds_4bits_tri_o;
+   (dot_led_addr,
+    dot_led_ale,
+    dot_led_clk,
+    dot_led_dg,
+    dot_led_dr,
+    dot_led_ram,
+    dot_led_se,
+    dot_led_we,
+    leds_6bits_tri_o);
+  output [3:0]dot_led_addr;
+  output dot_led_ale;
+  output dot_led_clk;
+  output dot_led_dg;
+  output dot_led_dr;
+  output dot_led_ram;
+  output dot_led_se;
+  output dot_led_we;
+  output [5:0]leds_6bits_tri_o;
 
-  wire [3:0]axi_led_board_0_Addr;
-  wire [31:0]axi_led_board_0_GData;
-  wire axi_led_board_0_RAM_Sel;
-  wire [31:0]axi_led_board_0_RData;
-  wire axi_led_board_0_Request;
-  wire axi_led_board_0_SE;
+  wire [3:0]axi_dot_led_0_ADDR;
+  wire [31:0]axi_dot_led_0_GData;
+  wire axi_dot_led_0_RAM;
+  wire [31:0]axi_dot_led_0_RData;
+  wire axi_dot_led_0_SE;
+  wire axi_dot_led_0_wr_en;
+  wire [3:0]dot_led_split_0_ADDR;
+  wire [31:0]dot_led_split_0_GData;
+  wire [31:0]dot_led_split_0_RData;
+  wire [67:0]fifo_generator_0_dout;
+  wire fifo_generator_0_full;
+  wire fifo_generator_0_valid;
+  wire [3:0]led_board_sout_0_ADDR_Out;
   wire led_board_sout_0_ALE;
-  wire [3:0]led_board_sout_0_Addr_Out;
   wire led_board_sout_0_CLK_Out;
-  wire led_board_sout_0_Clear;
-  wire led_board_sout_0_GD;
-  wire led_board_sout_0_RD;
+  wire led_board_sout_0_DG;
+  wire led_board_sout_0_DR;
   wire led_board_sout_0_WE;
+  wire led_board_sout_0_rd_en;
   wire prescaler_0_clk_out;
   wire processing_system7_0_FCLK_CLK0;
   wire processing_system7_0_FCLK_RESET0_N;
@@ -91,19 +111,26 @@ module led_board
   wire processing_system7_0_axi_periph_M00_AXI_WVALID;
   wire [0:0]rst_processing_system7_0_100M_interconnect_aresetn;
   wire [0:0]rst_processing_system7_0_100M_peripheral_aresetn;
-  wire [3:0]xlconcat_0_dout;
-  wire [10:0]xlconcat_1_dout;
+  wire [0:0]rst_processing_system7_0_100M_peripheral_reset;
+  wire [5:0]xlconcat_0_dout;
+  wire [67:0]xlconcat_1_dout;
 
-  assign led_data_o[10:0] = xlconcat_1_dout;
-  assign leds_4bits_tri_o[3:0] = xlconcat_0_dout;
-  led_board_axi_led_board_0_3 axi_led_board_0
-       (.Addr(axi_led_board_0_Addr),
-        .Clear(led_board_sout_0_Clear),
-        .GData(axi_led_board_0_GData),
-        .RAM_Sel(axi_led_board_0_RAM_Sel),
-        .RData(axi_led_board_0_RData),
-        .Request(axi_led_board_0_Request),
-        .SE(axi_led_board_0_SE),
+  assign dot_led_addr[3:0] = led_board_sout_0_ADDR_Out;
+  assign dot_led_ale = led_board_sout_0_ALE;
+  assign dot_led_clk = led_board_sout_0_CLK_Out;
+  assign dot_led_dg = led_board_sout_0_DG;
+  assign dot_led_dr = led_board_sout_0_DR;
+  assign dot_led_ram = axi_dot_led_0_RAM;
+  assign dot_led_se = axi_dot_led_0_SE;
+  assign dot_led_we = led_board_sout_0_WE;
+  assign leds_6bits_tri_o[5:0] = xlconcat_0_dout;
+  led_board_axi_dot_led_0_2 axi_dot_led_0
+       (.ADDR(axi_dot_led_0_ADDR),
+        .GData(axi_dot_led_0_GData),
+        .RAM(axi_dot_led_0_RAM),
+        .RData(axi_dot_led_0_RData),
+        .SE(axi_dot_led_0_SE),
+        .full(fifo_generator_0_full),
         .s_axi_aclk(processing_system7_0_FCLK_CLK0),
         .s_axi_araddr(processing_system7_0_axi_periph_M00_AXI_ARADDR[3:0]),
         .s_axi_aresetn(rst_processing_system7_0_100M_peripheral_aresetn),
@@ -124,20 +151,37 @@ module led_board
         .s_axi_wdata(processing_system7_0_axi_periph_M00_AXI_WDATA),
         .s_axi_wready(processing_system7_0_axi_periph_M00_AXI_WREADY),
         .s_axi_wstrb(processing_system7_0_axi_periph_M00_AXI_WSTRB),
-        .s_axi_wvalid(processing_system7_0_axi_periph_M00_AXI_WVALID));
+        .s_axi_wvalid(processing_system7_0_axi_periph_M00_AXI_WVALID),
+        .wr_en(axi_dot_led_0_wr_en));
+  led_board_dot_led_split_0_0 dot_led_split_0
+       (.ADDR(dot_led_split_0_ADDR),
+        .GData(dot_led_split_0_GData),
+        .RData(dot_led_split_0_RData),
+        .data(fifo_generator_0_dout));
+  led_board_fifo_generator_0_0 fifo_generator_0
+       (.din(xlconcat_1_dout),
+        .dout(fifo_generator_0_dout),
+        .full(fifo_generator_0_full),
+        .rd_clk(prescaler_0_clk_out),
+        .rd_en(led_board_sout_0_rd_en),
+        .rst(rst_processing_system7_0_100M_peripheral_reset),
+        .valid(fifo_generator_0_valid),
+        .wr_clk(processing_system7_0_FCLK_CLK0),
+        .wr_en(axi_dot_led_0_wr_en));
   led_board_led_board_sout_0_0 led_board_sout_0
-       (.ALE(led_board_sout_0_ALE),
-        .Addr_In(axi_led_board_0_Addr),
-        .Addr_Out(led_board_sout_0_Addr_Out),
-        .CLK_In(prescaler_0_clk_out),
+       (.ADDR(dot_led_split_0_ADDR),
+        .ADDR_Out(led_board_sout_0_ADDR_Out),
+        .ALE(led_board_sout_0_ALE),
+        .CLK(prescaler_0_clk_out),
         .CLK_Out(led_board_sout_0_CLK_Out),
-        .Clear(led_board_sout_0_Clear),
-        .GD(led_board_sout_0_GD),
-        .GData(axi_led_board_0_GData),
-        .RD(led_board_sout_0_RD),
-        .RData(axi_led_board_0_RData),
-        .Request(axi_led_board_0_Request),
-        .WE(led_board_sout_0_WE));
+        .DG(led_board_sout_0_DG),
+        .DR(led_board_sout_0_DR),
+        .GData(dot_led_split_0_GData),
+        .RData(dot_led_split_0_RData),
+        .WE(led_board_sout_0_WE),
+        .rd_en(led_board_sout_0_rd_en),
+        .rst(rst_processing_system7_0_100M_peripheral_reset),
+        .valid(fifo_generator_0_valid));
   led_board_prescaler_0_0 prescaler_0
        (.clk_in(processing_system7_0_FCLK_CLK0),
         .clk_out(prescaler_0_clk_out));
@@ -184,7 +228,7 @@ module led_board
         .M_AXI_GP0_WSTRB(processing_system7_0_M_AXI_GP0_WSTRB),
         .M_AXI_GP0_WVALID(processing_system7_0_M_AXI_GP0_WVALID),
         .USB0_VBUS_PWRFAULT(1'b0));
-  led_board_processing_system7_0_axi_periph_1 processing_system7_0_axi_periph
+  led_board_processing_system7_0_axi_periph_2 processing_system7_0_axi_periph
        (.ACLK(processing_system7_0_FCLK_CLK0),
         .ARESETN(rst_processing_system7_0_100M_interconnect_aresetn),
         .M00_ACLK(processing_system7_0_FCLK_CLK0),
@@ -248,33 +292,28 @@ module led_board
         .S00_AXI_wready(processing_system7_0_M_AXI_GP0_WREADY),
         .S00_AXI_wstrb(processing_system7_0_M_AXI_GP0_WSTRB),
         .S00_AXI_wvalid(processing_system7_0_M_AXI_GP0_WVALID));
-  led_board_rst_processing_system7_0_100M_1 rst_processing_system7_0_100M
+  led_board_rst_processing_system7_0_100M_2 rst_processing_system7_0_100M
        (.aux_reset_in(1'b1),
         .dcm_locked(1'b1),
         .ext_reset_in(processing_system7_0_FCLK_RESET0_N),
         .interconnect_aresetn(rst_processing_system7_0_100M_interconnect_aresetn),
         .mb_debug_sys_rst(1'b0),
         .peripheral_aresetn(rst_processing_system7_0_100M_peripheral_aresetn),
+        .peripheral_reset(rst_processing_system7_0_100M_peripheral_reset),
         .slowest_sync_clk(processing_system7_0_FCLK_CLK0));
   led_board_xlconcat_0_0 xlconcat_0
-       (.In0(led_board_sout_0_CLK_Out),
-        .In1(led_board_sout_0_RD),
-        .In2(led_board_sout_0_ALE),
-        .In3(axi_led_board_0_Request),
+       (.In0(dot_led_split_0_ADDR),
+        .In1(fifo_generator_0_valid),
+        .In2(led_board_sout_0_CLK_Out),
         .dout(xlconcat_0_dout));
   led_board_xlconcat_1_0 xlconcat_1
-       (.In0(axi_led_board_0_SE),
-        .In1(axi_led_board_0_RAM_Sel),
-        .In2(led_board_sout_0_Addr_Out),
-        .In3(led_board_sout_0_GD),
-        .In4(led_board_sout_0_CLK_Out),
-        .In5(led_board_sout_0_WE),
-        .In6(led_board_sout_0_RD),
-        .In7(led_board_sout_0_ALE),
+       (.In0(axi_dot_led_0_ADDR),
+        .In1(axi_dot_led_0_GData),
+        .In2(axi_dot_led_0_RData),
         .dout(xlconcat_1_dout));
 endmodule
 
-module led_board_processing_system7_0_axi_periph_1
+module led_board_processing_system7_0_axi_periph_2
    (ACLK,
     ARESETN,
     M00_ACLK,

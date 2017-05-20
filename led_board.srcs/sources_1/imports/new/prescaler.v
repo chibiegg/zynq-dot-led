@@ -26,17 +26,24 @@ module prescaler(
     );
 
     reg [32:0] counter;
+    reg clk;
 
-    assign clk_out = counter[9];
-    // 6
+    assign clk_out = clk;
+    // 9
 
     initial
     begin
       counter <= 0;
+      clk <= 0;
     end
 
     always @(posedge clk_in)
     begin
       counter <= counter + 1;
     end
+
+    always @ ( * ) begin
+      clk <= counter[9];
+    end
+
 endmodule

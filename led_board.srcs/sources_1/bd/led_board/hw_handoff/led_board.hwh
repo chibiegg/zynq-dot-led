@@ -1,17 +1,52 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon May 15 05:43:43 2017" VIVADOVERSION="2016.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed May 17 15:37:22 2017" VIVADOVERSION="2016.1">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z020" NAME="led_board" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
   <EXTERNALPORTS>
-    <PORT DIR="O" LEFT="3" NAME="leds_4bits_tri_o" RIGHT="0" SIGIS="data" SIGNAME="xlconcat_0_dout">
+    <PORT DIR="O" NAME="dot_led_se" SIGIS="undef" SIGNAME="axi_dot_led_0_SE">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="axi_dot_led_0" PORT="SE"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="dot_led_ram" SIGIS="undef" SIGNAME="axi_dot_led_0_RAM">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="axi_dot_led_0" PORT="RAM"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="dot_led_ale" SIGIS="undef" SIGNAME="led_board_sout_0_ALE">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="led_board_sout_0" PORT="ALE"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="dot_led_dr" SIGIS="undef" SIGNAME="led_board_sout_0_DR">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="led_board_sout_0" PORT="DR"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="dot_led_dg" SIGIS="undef" SIGNAME="led_board_sout_0_DG">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="led_board_sout_0" PORT="DG"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="dot_led_we" SIGIS="undef" SIGNAME="led_board_sout_0_WE">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="led_board_sout_0" PORT="WE"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="dot_led_clk" SIGIS="undef" SIGNAME="led_board_sout_0_CLK_Out">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="led_board_sout_0" PORT="CLK_Out"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="5" NAME="leds_6bits_tri_o" RIGHT="0" SIGIS="undef" SIGNAME="xlconcat_0_dout">
       <CONNECTIONS>
         <CONNECTION INSTANCE="xlconcat_0" PORT="dout"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" LEFT="10" NAME="led_data_o" RIGHT="0" SIGIS="data" SIGNAME="xlconcat_1_dout">
+    <PORT DIR="O" LEFT="3" NAME="dot_led_addr" RIGHT="0" SIGIS="undef" SIGNAME="led_board_sout_0_ADDR_Out">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="xlconcat_1" PORT="dout"/>
+        <CONNECTION INSTANCE="led_board_sout_0" PORT="ADDR_Out"/>
       </CONNECTIONS>
     </PORT>
   </EXTERNALPORTS>
@@ -19,7 +54,7 @@
   <EXTERNALINTERFACES/>
 
   <MODULES>
-    <MODULE FULLNAME="/axi_led_board_0" HWVERSION="1.0" INSTANCE="axi_led_board_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_led_board" VLNV="chibiegg.net:chibiegg:axi_led_board:1.0">
+    <MODULE FULLNAME="/axi_dot_led_0" HWVERSION="1.0.3" INSTANCE="axi_dot_led_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_dot_led" VLNV="chibiegg.net:chibiegg:axi_dot_led:1.0.3">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="S_AXI" NAME="S_AXI_reg" RANGE="4096" USAGE="register"/>
@@ -27,139 +62,138 @@
       <PARAMETERS>
         <PARAMETER NAME="C_S_AXI_DATA_WIDTH" VALUE="32"/>
         <PARAMETER NAME="C_S_AXI_ADDR_WIDTH" VALUE="4"/>
-        <PARAMETER NAME="Component_Name" VALUE="led_board_axi_led_board_0_3"/>
+        <PARAMETER NAME="Component_Name" VALUE="led_board_axi_dot_led_0_2"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
         <PARAMETER NAME="C_S_AXI_BASEADDR" VALUE="0x43C00000"/>
-        <PARAMETER NAME="C_S_AXI_HIGHADDR" VALUE="0x43C0FFFF"/>
+        <PARAMETER NAME="C_S_AXI_HIGHADDR" VALUE="0x43C00FFF"/>
       </PARAMETERS>
       <PORTS>
-        <PORT DIR="O" NAME="SE" SIGIS="undef" SIGNAME="axi_led_board_0_SE">
+        <PORT DIR="O" NAME="SE" SIGIS="undef" SIGNAME="axi_dot_led_0_SE">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="dot_led_se"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="RAM" SIGIS="undef" SIGNAME="axi_dot_led_0_RAM">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="dot_led_ram"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="3" NAME="ADDR" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_ADDR">
           <CONNECTIONS>
             <CONNECTION INSTANCE="xlconcat_1" PORT="In0"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="RAM_Sel" SIGIS="undef" SIGNAME="axi_led_board_0_RAM_Sel">
+        <PORT DIR="O" LEFT="31" NAME="GData" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_GData">
           <CONNECTIONS>
             <CONNECTION INSTANCE="xlconcat_1" PORT="In1"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="3" NAME="Addr" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_Addr">
+        <PORT DIR="O" LEFT="31" NAME="RData" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_RData">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="led_board_sout_0" PORT="Addr_In"/>
+            <CONNECTION INSTANCE="xlconcat_1" PORT="In2"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="RData" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_RData">
+        <PORT DIR="I" NAME="full" SIGIS="undef" SIGNAME="fifo_generator_0_full">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="led_board_sout_0" PORT="RData"/>
+            <CONNECTION INSTANCE="fifo_generator_0" PORT="full"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="GData" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_GData">
+        <PORT DIR="O" NAME="wr_en" SIGIS="undef" SIGNAME="axi_dot_led_0_wr_en">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="led_board_sout_0" PORT="GData"/>
+            <CONNECTION INSTANCE="fifo_generator_0" PORT="wr_en"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="Request" SIGIS="undef" SIGNAME="axi_led_board_0_Request">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="xlconcat_0" PORT="In3"/>
-            <CONNECTION INSTANCE="led_board_sout_0" PORT="Request"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="Clear" SIGIS="undef" SIGNAME="led_board_sout_0_Clear">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="led_board_sout_0" PORT="Clear"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="3" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_awaddr">
+        <PORT DIR="I" LEFT="3" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_awaddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_awaddr"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="2" NAME="s_axi_awprot" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_awprot">
+        <PORT DIR="I" LEFT="2" NAME="s_axi_awprot" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_awprot">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_awprot"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="s_axi_awvalid" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_awvalid">
+        <PORT DIR="I" NAME="s_axi_awvalid" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_awvalid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_awvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="s_axi_awready" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_awready">
+        <PORT DIR="O" NAME="s_axi_awready" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_awready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_awready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="31" NAME="s_axi_wdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_wdata">
+        <PORT DIR="I" LEFT="31" NAME="s_axi_wdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_wdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_wdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="3" NAME="s_axi_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_wstrb">
+        <PORT DIR="I" LEFT="3" NAME="s_axi_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_wstrb">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_wstrb"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="s_axi_wvalid" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_wvalid">
+        <PORT DIR="I" NAME="s_axi_wvalid" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_wvalid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_wvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="s_axi_wready" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_wready">
+        <PORT DIR="O" NAME="s_axi_wready" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_wready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_wready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="1" NAME="s_axi_bresp" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_bresp">
+        <PORT DIR="O" LEFT="1" NAME="s_axi_bresp" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_bresp">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_bresp"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="s_axi_bvalid" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_bvalid">
+        <PORT DIR="O" NAME="s_axi_bvalid" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_bvalid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_bvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="s_axi_bready" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_bready">
+        <PORT DIR="I" NAME="s_axi_bready" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_bready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_bready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="3" NAME="s_axi_araddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_araddr">
+        <PORT DIR="I" LEFT="3" NAME="s_axi_araddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_araddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_araddr"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="2" NAME="s_axi_arprot" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_arprot">
+        <PORT DIR="I" LEFT="2" NAME="s_axi_arprot" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_arprot">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_arprot"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="s_axi_arvalid" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_arvalid">
+        <PORT DIR="I" NAME="s_axi_arvalid" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_arvalid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_arvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="s_axi_arready" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_arready">
+        <PORT DIR="O" NAME="s_axi_arready" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_arready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_arready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="s_axi_rdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_rdata">
+        <PORT DIR="O" LEFT="31" NAME="s_axi_rdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_rdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_rdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="1" NAME="s_axi_rresp" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_rresp">
+        <PORT DIR="O" LEFT="1" NAME="s_axi_rresp" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_rresp">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_rresp"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="s_axi_rvalid" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_rvalid">
+        <PORT DIR="O" NAME="s_axi_rvalid" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_rvalid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_rvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="s_axi_rready" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_rready">
+        <PORT DIR="I" NAME="s_axi_rready" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_rready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_AXI_rready"/>
           </CONNECTIONS>
@@ -229,6 +263,480 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
+    <MODULE FULLNAME="/dot_led_split_0" HWVERSION="1.0" INSTANCE="dot_led_split_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="dot_led_split" VLNV="user.org:module_ref:dot_led_split:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="led_board_dot_led_split_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="67" NAME="data" RIGHT="0" SIGIS="undef" SIGNAME="fifo_generator_0_dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_generator_0" PORT="dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="3" NAME="ADDR" RIGHT="0" SIGIS="undef" SIGNAME="dot_led_split_0_ADDR">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="led_board_sout_0" PORT="ADDR"/>
+            <CONNECTION INSTANCE="xlconcat_0" PORT="In0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="RData" RIGHT="0" SIGIS="undef" SIGNAME="dot_led_split_0_RData">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="led_board_sout_0" PORT="RData"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="GData" RIGHT="0" SIGIS="undef" SIGNAME="dot_led_split_0_GData">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="led_board_sout_0" PORT="GData"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/fifo_generator_0" HWVERSION="13.1" INSTANCE="fifo_generator_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="fifo_generator" VLNV="xilinx.com:ip:fifo_generator:13.1">
+      <DOCUMENTS>
+        <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=fifo_generator;v=v13_1;d=pg057-fifo-generator.pdf"/>
+      </DOCUMENTS>
+      <PARAMETERS>
+        <PARAMETER NAME="C_COMMON_CLOCK" VALUE="0"/>
+        <PARAMETER NAME="C_SELECT_XPM" VALUE="0"/>
+        <PARAMETER NAME="C_COUNT_TYPE" VALUE="0"/>
+        <PARAMETER NAME="C_DATA_COUNT_WIDTH" VALUE="5"/>
+        <PARAMETER NAME="C_DEFAULT_VALUE" VALUE="BlankString"/>
+        <PARAMETER NAME="C_DIN_WIDTH" VALUE="68"/>
+        <PARAMETER NAME="C_DOUT_RST_VAL" VALUE="0"/>
+        <PARAMETER NAME="C_DOUT_WIDTH" VALUE="68"/>
+        <PARAMETER NAME="C_ENABLE_RLOCS" VALUE="0"/>
+        <PARAMETER NAME="C_FAMILY" VALUE="zynq"/>
+        <PARAMETER NAME="C_FULL_FLAGS_RST_VAL" VALUE="1"/>
+        <PARAMETER NAME="C_HAS_ALMOST_EMPTY" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_ALMOST_FULL" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_BACKUP" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_DATA_COUNT" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_INT_CLK" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_MEMINIT_FILE" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_OVERFLOW" VALUE="1"/>
+        <PARAMETER NAME="C_HAS_RD_DATA_COUNT" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_RD_RST" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_RST" VALUE="1"/>
+        <PARAMETER NAME="C_HAS_SRST" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_UNDERFLOW" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_VALID" VALUE="1"/>
+        <PARAMETER NAME="C_HAS_WR_ACK" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_WR_DATA_COUNT" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_WR_RST" VALUE="0"/>
+        <PARAMETER NAME="C_IMPLEMENTATION_TYPE" VALUE="2"/>
+        <PARAMETER NAME="C_INIT_WR_PNTR_VAL" VALUE="0"/>
+        <PARAMETER NAME="C_MEMORY_TYPE" VALUE="1"/>
+        <PARAMETER NAME="C_MIF_FILE_NAME" VALUE="BlankString"/>
+        <PARAMETER NAME="C_OPTIMIZATION_MODE" VALUE="0"/>
+        <PARAMETER NAME="C_OVERFLOW_LOW" VALUE="0"/>
+        <PARAMETER NAME="C_PRELOAD_LATENCY" VALUE="0"/>
+        <PARAMETER NAME="C_PRELOAD_REGS" VALUE="1"/>
+        <PARAMETER NAME="C_PRIM_FIFO_TYPE" VALUE="512x72"/>
+        <PARAMETER NAME="C_PROG_EMPTY_THRESH_ASSERT_VAL" VALUE="4"/>
+        <PARAMETER NAME="C_PROG_EMPTY_THRESH_NEGATE_VAL" VALUE="5"/>
+        <PARAMETER NAME="C_PROG_EMPTY_TYPE" VALUE="0"/>
+        <PARAMETER NAME="C_PROG_FULL_THRESH_ASSERT_VAL" VALUE="31"/>
+        <PARAMETER NAME="C_PROG_FULL_THRESH_NEGATE_VAL" VALUE="30"/>
+        <PARAMETER NAME="C_PROG_FULL_TYPE" VALUE="0"/>
+        <PARAMETER NAME="C_RD_DATA_COUNT_WIDTH" VALUE="5"/>
+        <PARAMETER NAME="C_RD_DEPTH" VALUE="32"/>
+        <PARAMETER NAME="C_RD_FREQ" VALUE="1"/>
+        <PARAMETER NAME="C_RD_PNTR_WIDTH" VALUE="5"/>
+        <PARAMETER NAME="C_UNDERFLOW_LOW" VALUE="0"/>
+        <PARAMETER NAME="C_USE_DOUT_RST" VALUE="1"/>
+        <PARAMETER NAME="C_USE_ECC" VALUE="0"/>
+        <PARAMETER NAME="C_USE_EMBEDDED_REG" VALUE="0"/>
+        <PARAMETER NAME="C_USE_PIPELINE_REG" VALUE="0"/>
+        <PARAMETER NAME="C_POWER_SAVING_MODE" VALUE="0"/>
+        <PARAMETER NAME="C_USE_FIFO16_FLAGS" VALUE="0"/>
+        <PARAMETER NAME="C_USE_FWFT_DATA_COUNT" VALUE="0"/>
+        <PARAMETER NAME="C_VALID_LOW" VALUE="0"/>
+        <PARAMETER NAME="C_WR_ACK_LOW" VALUE="0"/>
+        <PARAMETER NAME="C_WR_DATA_COUNT_WIDTH" VALUE="5"/>
+        <PARAMETER NAME="C_WR_DEPTH" VALUE="32"/>
+        <PARAMETER NAME="C_WR_FREQ" VALUE="1"/>
+        <PARAMETER NAME="C_WR_PNTR_WIDTH" VALUE="5"/>
+        <PARAMETER NAME="C_WR_RESPONSE_LATENCY" VALUE="1"/>
+        <PARAMETER NAME="C_MSGON_VAL" VALUE="1"/>
+        <PARAMETER NAME="C_ENABLE_RST_SYNC" VALUE="1"/>
+        <PARAMETER NAME="C_EN_SAFETY_CKT" VALUE="0"/>
+        <PARAMETER NAME="C_ERROR_INJECTION_TYPE" VALUE="0"/>
+        <PARAMETER NAME="C_SYNCHRONIZER_STAGE" VALUE="2"/>
+        <PARAMETER NAME="C_INTERFACE_TYPE" VALUE="0"/>
+        <PARAMETER NAME="C_AXI_TYPE" VALUE="1"/>
+        <PARAMETER NAME="C_HAS_AXI_WR_CHANNEL" VALUE="1"/>
+        <PARAMETER NAME="C_HAS_AXI_RD_CHANNEL" VALUE="1"/>
+        <PARAMETER NAME="C_HAS_SLAVE_CE" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_MASTER_CE" VALUE="0"/>
+        <PARAMETER NAME="C_ADD_NGC_CONSTRAINT" VALUE="0"/>
+        <PARAMETER NAME="C_USE_COMMON_OVERFLOW" VALUE="0"/>
+        <PARAMETER NAME="C_USE_COMMON_UNDERFLOW" VALUE="0"/>
+        <PARAMETER NAME="C_USE_DEFAULT_SETTINGS" VALUE="0"/>
+        <PARAMETER NAME="C_AXI_ID_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXI_ADDR_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="C_AXI_DATA_WIDTH" VALUE="64"/>
+        <PARAMETER NAME="C_AXI_LEN_WIDTH" VALUE="8"/>
+        <PARAMETER NAME="C_AXI_LOCK_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_HAS_AXI_ID" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_AXI_AWUSER" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_AXI_WUSER" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_AXI_BUSER" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_AXI_ARUSER" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_AXI_RUSER" VALUE="0"/>
+        <PARAMETER NAME="C_AXI_ARUSER_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXI_AWUSER_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXI_WUSER_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXI_BUSER_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXI_RUSER_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_HAS_AXIS_TDATA" VALUE="1"/>
+        <PARAMETER NAME="C_HAS_AXIS_TID" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_AXIS_TDEST" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_AXIS_TUSER" VALUE="1"/>
+        <PARAMETER NAME="C_HAS_AXIS_TREADY" VALUE="1"/>
+        <PARAMETER NAME="C_HAS_AXIS_TLAST" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_AXIS_TSTRB" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_AXIS_TKEEP" VALUE="0"/>
+        <PARAMETER NAME="C_AXIS_TDATA_WIDTH" VALUE="8"/>
+        <PARAMETER NAME="C_AXIS_TID_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXIS_TDEST_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXIS_TUSER_WIDTH" VALUE="4"/>
+        <PARAMETER NAME="C_AXIS_TSTRB_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXIS_TKEEP_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_WACH_TYPE" VALUE="0"/>
+        <PARAMETER NAME="C_WDCH_TYPE" VALUE="0"/>
+        <PARAMETER NAME="C_WRCH_TYPE" VALUE="0"/>
+        <PARAMETER NAME="C_RACH_TYPE" VALUE="0"/>
+        <PARAMETER NAME="C_RDCH_TYPE" VALUE="0"/>
+        <PARAMETER NAME="C_AXIS_TYPE" VALUE="0"/>
+        <PARAMETER NAME="C_IMPLEMENTATION_TYPE_WACH" VALUE="1"/>
+        <PARAMETER NAME="C_IMPLEMENTATION_TYPE_WDCH" VALUE="1"/>
+        <PARAMETER NAME="C_IMPLEMENTATION_TYPE_WRCH" VALUE="1"/>
+        <PARAMETER NAME="C_IMPLEMENTATION_TYPE_RACH" VALUE="1"/>
+        <PARAMETER NAME="C_IMPLEMENTATION_TYPE_RDCH" VALUE="1"/>
+        <PARAMETER NAME="C_IMPLEMENTATION_TYPE_AXIS" VALUE="1"/>
+        <PARAMETER NAME="C_APPLICATION_TYPE_WACH" VALUE="0"/>
+        <PARAMETER NAME="C_APPLICATION_TYPE_WDCH" VALUE="0"/>
+        <PARAMETER NAME="C_APPLICATION_TYPE_WRCH" VALUE="0"/>
+        <PARAMETER NAME="C_APPLICATION_TYPE_RACH" VALUE="0"/>
+        <PARAMETER NAME="C_APPLICATION_TYPE_RDCH" VALUE="0"/>
+        <PARAMETER NAME="C_APPLICATION_TYPE_AXIS" VALUE="0"/>
+        <PARAMETER NAME="C_PRIM_FIFO_TYPE_WACH" VALUE="512x36"/>
+        <PARAMETER NAME="C_PRIM_FIFO_TYPE_WDCH" VALUE="1kx36"/>
+        <PARAMETER NAME="C_PRIM_FIFO_TYPE_WRCH" VALUE="512x36"/>
+        <PARAMETER NAME="C_PRIM_FIFO_TYPE_RACH" VALUE="512x36"/>
+        <PARAMETER NAME="C_PRIM_FIFO_TYPE_RDCH" VALUE="1kx36"/>
+        <PARAMETER NAME="C_PRIM_FIFO_TYPE_AXIS" VALUE="1kx18"/>
+        <PARAMETER NAME="C_USE_ECC_WACH" VALUE="0"/>
+        <PARAMETER NAME="C_USE_ECC_WDCH" VALUE="0"/>
+        <PARAMETER NAME="C_USE_ECC_WRCH" VALUE="0"/>
+        <PARAMETER NAME="C_USE_ECC_RACH" VALUE="0"/>
+        <PARAMETER NAME="C_USE_ECC_RDCH" VALUE="0"/>
+        <PARAMETER NAME="C_USE_ECC_AXIS" VALUE="0"/>
+        <PARAMETER NAME="C_ERROR_INJECTION_TYPE_WACH" VALUE="0"/>
+        <PARAMETER NAME="C_ERROR_INJECTION_TYPE_WDCH" VALUE="0"/>
+        <PARAMETER NAME="C_ERROR_INJECTION_TYPE_WRCH" VALUE="0"/>
+        <PARAMETER NAME="C_ERROR_INJECTION_TYPE_RACH" VALUE="0"/>
+        <PARAMETER NAME="C_ERROR_INJECTION_TYPE_RDCH" VALUE="0"/>
+        <PARAMETER NAME="C_ERROR_INJECTION_TYPE_AXIS" VALUE="0"/>
+        <PARAMETER NAME="C_DIN_WIDTH_WACH" VALUE="1"/>
+        <PARAMETER NAME="C_DIN_WIDTH_WDCH" VALUE="64"/>
+        <PARAMETER NAME="C_DIN_WIDTH_WRCH" VALUE="2"/>
+        <PARAMETER NAME="C_DIN_WIDTH_RACH" VALUE="32"/>
+        <PARAMETER NAME="C_DIN_WIDTH_RDCH" VALUE="64"/>
+        <PARAMETER NAME="C_DIN_WIDTH_AXIS" VALUE="1"/>
+        <PARAMETER NAME="C_WR_DEPTH_WACH" VALUE="16"/>
+        <PARAMETER NAME="C_WR_DEPTH_WDCH" VALUE="1024"/>
+        <PARAMETER NAME="C_WR_DEPTH_WRCH" VALUE="16"/>
+        <PARAMETER NAME="C_WR_DEPTH_RACH" VALUE="16"/>
+        <PARAMETER NAME="C_WR_DEPTH_RDCH" VALUE="1024"/>
+        <PARAMETER NAME="C_WR_DEPTH_AXIS" VALUE="1024"/>
+        <PARAMETER NAME="C_WR_PNTR_WIDTH_WACH" VALUE="4"/>
+        <PARAMETER NAME="C_WR_PNTR_WIDTH_WDCH" VALUE="10"/>
+        <PARAMETER NAME="C_WR_PNTR_WIDTH_WRCH" VALUE="4"/>
+        <PARAMETER NAME="C_WR_PNTR_WIDTH_RACH" VALUE="4"/>
+        <PARAMETER NAME="C_WR_PNTR_WIDTH_RDCH" VALUE="10"/>
+        <PARAMETER NAME="C_WR_PNTR_WIDTH_AXIS" VALUE="10"/>
+        <PARAMETER NAME="C_HAS_DATA_COUNTS_WACH" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_DATA_COUNTS_WDCH" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_DATA_COUNTS_WRCH" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_DATA_COUNTS_RACH" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_DATA_COUNTS_RDCH" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_DATA_COUNTS_AXIS" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_PROG_FLAGS_WACH" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_PROG_FLAGS_WDCH" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_PROG_FLAGS_WRCH" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_PROG_FLAGS_RACH" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_PROG_FLAGS_RDCH" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_PROG_FLAGS_AXIS" VALUE="0"/>
+        <PARAMETER NAME="C_PROG_FULL_TYPE_WACH" VALUE="0"/>
+        <PARAMETER NAME="C_PROG_FULL_TYPE_WDCH" VALUE="0"/>
+        <PARAMETER NAME="C_PROG_FULL_TYPE_WRCH" VALUE="0"/>
+        <PARAMETER NAME="C_PROG_FULL_TYPE_RACH" VALUE="0"/>
+        <PARAMETER NAME="C_PROG_FULL_TYPE_RDCH" VALUE="0"/>
+        <PARAMETER NAME="C_PROG_FULL_TYPE_AXIS" VALUE="0"/>
+        <PARAMETER NAME="C_PROG_FULL_THRESH_ASSERT_VAL_WACH" VALUE="1023"/>
+        <PARAMETER NAME="C_PROG_FULL_THRESH_ASSERT_VAL_WDCH" VALUE="1023"/>
+        <PARAMETER NAME="C_PROG_FULL_THRESH_ASSERT_VAL_WRCH" VALUE="1023"/>
+        <PARAMETER NAME="C_PROG_FULL_THRESH_ASSERT_VAL_RACH" VALUE="1023"/>
+        <PARAMETER NAME="C_PROG_FULL_THRESH_ASSERT_VAL_RDCH" VALUE="1023"/>
+        <PARAMETER NAME="C_PROG_FULL_THRESH_ASSERT_VAL_AXIS" VALUE="1023"/>
+        <PARAMETER NAME="C_PROG_EMPTY_TYPE_WACH" VALUE="0"/>
+        <PARAMETER NAME="C_PROG_EMPTY_TYPE_WDCH" VALUE="0"/>
+        <PARAMETER NAME="C_PROG_EMPTY_TYPE_WRCH" VALUE="0"/>
+        <PARAMETER NAME="C_PROG_EMPTY_TYPE_RACH" VALUE="0"/>
+        <PARAMETER NAME="C_PROG_EMPTY_TYPE_RDCH" VALUE="0"/>
+        <PARAMETER NAME="C_PROG_EMPTY_TYPE_AXIS" VALUE="0"/>
+        <PARAMETER NAME="C_PROG_EMPTY_THRESH_ASSERT_VAL_WACH" VALUE="1022"/>
+        <PARAMETER NAME="C_PROG_EMPTY_THRESH_ASSERT_VAL_WDCH" VALUE="1022"/>
+        <PARAMETER NAME="C_PROG_EMPTY_THRESH_ASSERT_VAL_WRCH" VALUE="1022"/>
+        <PARAMETER NAME="C_PROG_EMPTY_THRESH_ASSERT_VAL_RACH" VALUE="1022"/>
+        <PARAMETER NAME="C_PROG_EMPTY_THRESH_ASSERT_VAL_RDCH" VALUE="1022"/>
+        <PARAMETER NAME="C_PROG_EMPTY_THRESH_ASSERT_VAL_AXIS" VALUE="1022"/>
+        <PARAMETER NAME="C_REG_SLICE_MODE_WACH" VALUE="0"/>
+        <PARAMETER NAME="C_REG_SLICE_MODE_WDCH" VALUE="0"/>
+        <PARAMETER NAME="C_REG_SLICE_MODE_WRCH" VALUE="0"/>
+        <PARAMETER NAME="C_REG_SLICE_MODE_RACH" VALUE="0"/>
+        <PARAMETER NAME="C_REG_SLICE_MODE_RDCH" VALUE="0"/>
+        <PARAMETER NAME="C_REG_SLICE_MODE_AXIS" VALUE="0"/>
+        <PARAMETER NAME="Component_Name" VALUE="led_board_fifo_generator_0_0"/>
+        <PARAMETER NAME="Fifo_Implementation" VALUE="Independent_Clocks_Block_RAM"/>
+        <PARAMETER NAME="synchronization_stages" VALUE="2"/>
+        <PARAMETER NAME="synchronization_stages_axi" VALUE="2"/>
+        <PARAMETER NAME="INTERFACE_TYPE" VALUE="Native"/>
+        <PARAMETER NAME="Performance_Options" VALUE="First_Word_Fall_Through"/>
+        <PARAMETER NAME="asymmetric_port_width" VALUE="false"/>
+        <PARAMETER NAME="Input_Data_Width" VALUE="68"/>
+        <PARAMETER NAME="Input_Depth" VALUE="32"/>
+        <PARAMETER NAME="Output_Data_Width" VALUE="68"/>
+        <PARAMETER NAME="Output_Depth" VALUE="32"/>
+        <PARAMETER NAME="Enable_ECC" VALUE="false"/>
+        <PARAMETER NAME="Use_Embedded_Registers" VALUE="false"/>
+        <PARAMETER NAME="Reset_Pin" VALUE="true"/>
+        <PARAMETER NAME="Enable_Reset_Synchronization" VALUE="true"/>
+        <PARAMETER NAME="Reset_Type" VALUE="Asynchronous_Reset"/>
+        <PARAMETER NAME="Full_Flags_Reset_Value" VALUE="1"/>
+        <PARAMETER NAME="Use_Dout_Reset" VALUE="true"/>
+        <PARAMETER NAME="Dout_Reset_Value" VALUE="0"/>
+        <PARAMETER NAME="dynamic_power_saving" VALUE="false"/>
+        <PARAMETER NAME="Almost_Full_Flag" VALUE="false"/>
+        <PARAMETER NAME="Almost_Empty_Flag" VALUE="false"/>
+        <PARAMETER NAME="Valid_Flag" VALUE="true"/>
+        <PARAMETER NAME="Valid_Sense" VALUE="Active_High"/>
+        <PARAMETER NAME="Underflow_Flag" VALUE="false"/>
+        <PARAMETER NAME="Underflow_Sense" VALUE="Active_High"/>
+        <PARAMETER NAME="Write_Acknowledge_Flag" VALUE="false"/>
+        <PARAMETER NAME="Write_Acknowledge_Sense" VALUE="Active_High"/>
+        <PARAMETER NAME="Overflow_Flag" VALUE="true"/>
+        <PARAMETER NAME="Overflow_Sense" VALUE="Active_High"/>
+        <PARAMETER NAME="Inject_Sbit_Error" VALUE="false"/>
+        <PARAMETER NAME="Inject_Dbit_Error" VALUE="false"/>
+        <PARAMETER NAME="ecc_pipeline_reg" VALUE="false"/>
+        <PARAMETER NAME="Use_Extra_Logic" VALUE="false"/>
+        <PARAMETER NAME="Data_Count" VALUE="false"/>
+        <PARAMETER NAME="Data_Count_Width" VALUE="5"/>
+        <PARAMETER NAME="Write_Data_Count" VALUE="false"/>
+        <PARAMETER NAME="Write_Data_Count_Width" VALUE="5"/>
+        <PARAMETER NAME="Read_Data_Count" VALUE="false"/>
+        <PARAMETER NAME="Read_Data_Count_Width" VALUE="5"/>
+        <PARAMETER NAME="Disable_Timing_Violations" VALUE="false"/>
+        <PARAMETER NAME="Read_Clock_Frequency" VALUE="1"/>
+        <PARAMETER NAME="Write_Clock_Frequency" VALUE="1"/>
+        <PARAMETER NAME="Programmable_Full_Type" VALUE="No_Programmable_Full_Threshold"/>
+        <PARAMETER NAME="Full_Threshold_Assert_Value" VALUE="31"/>
+        <PARAMETER NAME="Full_Threshold_Negate_Value" VALUE="30"/>
+        <PARAMETER NAME="Programmable_Empty_Type" VALUE="No_Programmable_Empty_Threshold"/>
+        <PARAMETER NAME="Empty_Threshold_Assert_Value" VALUE="4"/>
+        <PARAMETER NAME="Empty_Threshold_Negate_Value" VALUE="5"/>
+        <PARAMETER NAME="PROTOCOL" VALUE="AXI4"/>
+        <PARAMETER NAME="Clock_Type_AXI" VALUE="Common_Clock"/>
+        <PARAMETER NAME="HAS_ACLKEN" VALUE="false"/>
+        <PARAMETER NAME="Clock_Enable_Type" VALUE="Slave_Interface_Clock_Enable"/>
+        <PARAMETER NAME="READ_WRITE_MODE" VALUE="READ_WRITE"/>
+        <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="ADDRESS_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="DATA_WIDTH" VALUE="64"/>
+        <PARAMETER NAME="AWUSER_Width" VALUE="0"/>
+        <PARAMETER NAME="WUSER_Width" VALUE="0"/>
+        <PARAMETER NAME="BUSER_Width" VALUE="0"/>
+        <PARAMETER NAME="ARUSER_Width" VALUE="0"/>
+        <PARAMETER NAME="RUSER_Width" VALUE="0"/>
+        <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="1"/>
+        <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="TUSER_WIDTH" VALUE="4"/>
+        <PARAMETER NAME="Enable_TREADY" VALUE="true"/>
+        <PARAMETER NAME="Enable_TLAST" VALUE="false"/>
+        <PARAMETER NAME="HAS_TSTRB" VALUE="false"/>
+        <PARAMETER NAME="TSTRB_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="HAS_TKEEP" VALUE="false"/>
+        <PARAMETER NAME="TKEEP_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="wach_type" VALUE="FIFO"/>
+        <PARAMETER NAME="FIFO_Implementation_wach" VALUE="Common_Clock_Block_RAM"/>
+        <PARAMETER NAME="FIFO_Application_Type_wach" VALUE="Data_FIFO"/>
+        <PARAMETER NAME="Enable_ECC_wach" VALUE="false"/>
+        <PARAMETER NAME="Inject_Sbit_Error_wach" VALUE="false"/>
+        <PARAMETER NAME="Inject_Dbit_Error_wach" VALUE="false"/>
+        <PARAMETER NAME="Input_Depth_wach" VALUE="16"/>
+        <PARAMETER NAME="Enable_Data_Counts_wach" VALUE="false"/>
+        <PARAMETER NAME="Programmable_Full_Type_wach" VALUE="No_Programmable_Full_Threshold"/>
+        <PARAMETER NAME="Full_Threshold_Assert_Value_wach" VALUE="1023"/>
+        <PARAMETER NAME="Programmable_Empty_Type_wach" VALUE="No_Programmable_Empty_Threshold"/>
+        <PARAMETER NAME="Empty_Threshold_Assert_Value_wach" VALUE="1022"/>
+        <PARAMETER NAME="wdch_type" VALUE="FIFO"/>
+        <PARAMETER NAME="FIFO_Implementation_wdch" VALUE="Common_Clock_Block_RAM"/>
+        <PARAMETER NAME="FIFO_Application_Type_wdch" VALUE="Data_FIFO"/>
+        <PARAMETER NAME="Enable_ECC_wdch" VALUE="false"/>
+        <PARAMETER NAME="Inject_Sbit_Error_wdch" VALUE="false"/>
+        <PARAMETER NAME="Inject_Dbit_Error_wdch" VALUE="false"/>
+        <PARAMETER NAME="Input_Depth_wdch" VALUE="1024"/>
+        <PARAMETER NAME="Enable_Data_Counts_wdch" VALUE="false"/>
+        <PARAMETER NAME="Programmable_Full_Type_wdch" VALUE="No_Programmable_Full_Threshold"/>
+        <PARAMETER NAME="Full_Threshold_Assert_Value_wdch" VALUE="1023"/>
+        <PARAMETER NAME="Programmable_Empty_Type_wdch" VALUE="No_Programmable_Empty_Threshold"/>
+        <PARAMETER NAME="Empty_Threshold_Assert_Value_wdch" VALUE="1022"/>
+        <PARAMETER NAME="wrch_type" VALUE="FIFO"/>
+        <PARAMETER NAME="FIFO_Implementation_wrch" VALUE="Common_Clock_Block_RAM"/>
+        <PARAMETER NAME="FIFO_Application_Type_wrch" VALUE="Data_FIFO"/>
+        <PARAMETER NAME="Enable_ECC_wrch" VALUE="false"/>
+        <PARAMETER NAME="Inject_Sbit_Error_wrch" VALUE="false"/>
+        <PARAMETER NAME="Inject_Dbit_Error_wrch" VALUE="false"/>
+        <PARAMETER NAME="Input_Depth_wrch" VALUE="16"/>
+        <PARAMETER NAME="Enable_Data_Counts_wrch" VALUE="false"/>
+        <PARAMETER NAME="Programmable_Full_Type_wrch" VALUE="No_Programmable_Full_Threshold"/>
+        <PARAMETER NAME="Full_Threshold_Assert_Value_wrch" VALUE="1023"/>
+        <PARAMETER NAME="Programmable_Empty_Type_wrch" VALUE="No_Programmable_Empty_Threshold"/>
+        <PARAMETER NAME="Empty_Threshold_Assert_Value_wrch" VALUE="1022"/>
+        <PARAMETER NAME="rach_type" VALUE="FIFO"/>
+        <PARAMETER NAME="FIFO_Implementation_rach" VALUE="Common_Clock_Block_RAM"/>
+        <PARAMETER NAME="FIFO_Application_Type_rach" VALUE="Data_FIFO"/>
+        <PARAMETER NAME="Enable_ECC_rach" VALUE="false"/>
+        <PARAMETER NAME="Inject_Sbit_Error_rach" VALUE="false"/>
+        <PARAMETER NAME="Inject_Dbit_Error_rach" VALUE="false"/>
+        <PARAMETER NAME="Input_Depth_rach" VALUE="16"/>
+        <PARAMETER NAME="Enable_Data_Counts_rach" VALUE="false"/>
+        <PARAMETER NAME="Programmable_Full_Type_rach" VALUE="No_Programmable_Full_Threshold"/>
+        <PARAMETER NAME="Full_Threshold_Assert_Value_rach" VALUE="1023"/>
+        <PARAMETER NAME="Programmable_Empty_Type_rach" VALUE="No_Programmable_Empty_Threshold"/>
+        <PARAMETER NAME="Empty_Threshold_Assert_Value_rach" VALUE="1022"/>
+        <PARAMETER NAME="rdch_type" VALUE="FIFO"/>
+        <PARAMETER NAME="FIFO_Implementation_rdch" VALUE="Common_Clock_Block_RAM"/>
+        <PARAMETER NAME="FIFO_Application_Type_rdch" VALUE="Data_FIFO"/>
+        <PARAMETER NAME="Enable_ECC_rdch" VALUE="false"/>
+        <PARAMETER NAME="Inject_Sbit_Error_rdch" VALUE="false"/>
+        <PARAMETER NAME="Inject_Dbit_Error_rdch" VALUE="false"/>
+        <PARAMETER NAME="Input_Depth_rdch" VALUE="1024"/>
+        <PARAMETER NAME="Enable_Data_Counts_rdch" VALUE="false"/>
+        <PARAMETER NAME="Programmable_Full_Type_rdch" VALUE="No_Programmable_Full_Threshold"/>
+        <PARAMETER NAME="Full_Threshold_Assert_Value_rdch" VALUE="1023"/>
+        <PARAMETER NAME="Programmable_Empty_Type_rdch" VALUE="No_Programmable_Empty_Threshold"/>
+        <PARAMETER NAME="Empty_Threshold_Assert_Value_rdch" VALUE="1022"/>
+        <PARAMETER NAME="axis_type" VALUE="FIFO"/>
+        <PARAMETER NAME="FIFO_Implementation_axis" VALUE="Common_Clock_Block_RAM"/>
+        <PARAMETER NAME="FIFO_Application_Type_axis" VALUE="Data_FIFO"/>
+        <PARAMETER NAME="Enable_ECC_axis" VALUE="false"/>
+        <PARAMETER NAME="Inject_Sbit_Error_axis" VALUE="false"/>
+        <PARAMETER NAME="Inject_Dbit_Error_axis" VALUE="false"/>
+        <PARAMETER NAME="Input_Depth_axis" VALUE="1024"/>
+        <PARAMETER NAME="Enable_Data_Counts_axis" VALUE="false"/>
+        <PARAMETER NAME="Programmable_Full_Type_axis" VALUE="No_Programmable_Full_Threshold"/>
+        <PARAMETER NAME="Full_Threshold_Assert_Value_axis" VALUE="1023"/>
+        <PARAMETER NAME="Programmable_Empty_Type_axis" VALUE="No_Programmable_Empty_Threshold"/>
+        <PARAMETER NAME="Empty_Threshold_Assert_Value_axis" VALUE="1022"/>
+        <PARAMETER NAME="Register_Slice_Mode_wach" VALUE="Fully_Registered"/>
+        <PARAMETER NAME="Register_Slice_Mode_wdch" VALUE="Fully_Registered"/>
+        <PARAMETER NAME="Register_Slice_Mode_wrch" VALUE="Fully_Registered"/>
+        <PARAMETER NAME="Register_Slice_Mode_rach" VALUE="Fully_Registered"/>
+        <PARAMETER NAME="Register_Slice_Mode_rdch" VALUE="Fully_Registered"/>
+        <PARAMETER NAME="Register_Slice_Mode_axis" VALUE="Fully_Registered"/>
+        <PARAMETER NAME="Underflow_Flag_AXI" VALUE="false"/>
+        <PARAMETER NAME="Underflow_Sense_AXI" VALUE="Active_High"/>
+        <PARAMETER NAME="Overflow_Flag_AXI" VALUE="false"/>
+        <PARAMETER NAME="Overflow_Sense_AXI" VALUE="Active_High"/>
+        <PARAMETER NAME="Disable_Timing_Violations_AXI" VALUE="false"/>
+        <PARAMETER NAME="Add_NGC_Constraint_AXI" VALUE="false"/>
+        <PARAMETER NAME="Enable_Common_Underflow" VALUE="false"/>
+        <PARAMETER NAME="Enable_Common_Overflow" VALUE="false"/>
+        <PARAMETER NAME="enable_read_pointer_increment_by2" VALUE="false"/>
+        <PARAMETER NAME="Use_Embedded_Registers_axis" VALUE="false"/>
+        <PARAMETER NAME="enable_low_latency" VALUE="false"/>
+        <PARAMETER NAME="use_dout_register" VALUE="false"/>
+        <PARAMETER NAME="Master_interface_Clock_enable_memory_mapped" VALUE="false"/>
+        <PARAMETER NAME="Slave_interface_Clock_enable_memory_mapped" VALUE="false"/>
+        <PARAMETER NAME="Output_Register_Type" VALUE="Embedded_Reg"/>
+        <PARAMETER NAME="Enable_Safety_Circuit" VALUE="false"/>
+        <PARAMETER NAME="Enable_ECC_Type" VALUE="Hard_ECC"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" NAME="rst" SIGIS="undef" SIGNAME="rst_processing_system7_0_100M_peripheral_reset">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="rst_processing_system7_0_100M" PORT="peripheral_reset"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="wr_clk" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="rd_clk" SIGIS="clk" SIGNAME="prescaler_0_clk_out">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="prescaler_0" PORT="clk_out"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="67" NAME="din" RIGHT="0" SIGIS="undef" SIGNAME="xlconcat_1_dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="xlconcat_1" PORT="dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="wr_en" SIGIS="undef" SIGNAME="axi_dot_led_0_wr_en">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="wr_en"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rd_en" SIGIS="undef" SIGNAME="led_board_sout_0_rd_en">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="led_board_sout_0" PORT="rd_en"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="67" NAME="dout" RIGHT="0" SIGIS="undef" SIGNAME="fifo_generator_0_dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="dot_led_split_0" PORT="data"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="full" SIGIS="undef" SIGNAME="fifo_generator_0_full">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="full"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="overflow" SIGIS="undef"/>
+        <PORT DIR="O" NAME="empty" SIGIS="undef"/>
+        <PORT DIR="O" NAME="valid" SIGIS="undef" SIGNAME="fifo_generator_0_valid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="xlconcat_0" PORT="In1"/>
+            <CONNECTION INSTANCE="led_board_sout_0" PORT="valid"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="__NOC__" NAME="FIFO_WRITE" TYPE="TARGET" VLNV="xilinx.com:interface:fifo_write:1.0">
+          <PORTMAPS>
+            <PORTMAP LOGICAL="FULL" PHYSICAL="full"/>
+            <PORTMAP LOGICAL="WR_DATA" PHYSICAL="din"/>
+            <PORTMAP LOGICAL="WR_EN" PHYSICAL="wr_en"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="__NOC__" NAME="FIFO_READ" TYPE="TARGET" VLNV="xilinx.com:interface:fifo_read:1.0">
+          <PORTMAPS>
+            <PORTMAP LOGICAL="EMPTY" PHYSICAL="empty"/>
+            <PORTMAP LOGICAL="RD_DATA" PHYSICAL="dout"/>
+            <PORTMAP LOGICAL="RD_EN" PHYSICAL="rd_en"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
+    </MODULE>
     <MODULE FULLNAME="/led_board_sout_0" HWVERSION="1.0" INSTANCE="led_board_sout_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="led_board_sout" VLNV="user.org:module_ref:led_board_sout:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
@@ -236,67 +744,70 @@
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT DIR="I" NAME="CLK_In" SIGIS="undef" SIGNAME="prescaler_0_clk_out">
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="CLK" SIGIS="clk" SIGNAME="prescaler_0_clk_out">
           <CONNECTIONS>
             <CONNECTION INSTANCE="prescaler_0" PORT="clk_out"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="3" NAME="Addr_In" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_Addr">
+        <PORT DIR="I" LEFT="3" NAME="ADDR" RIGHT="0" SIGIS="undef" SIGNAME="dot_led_split_0_ADDR">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="Addr"/>
+            <CONNECTION INSTANCE="dot_led_split_0" PORT="ADDR"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="31" NAME="RData" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_RData">
+        <PORT DIR="I" LEFT="31" NAME="RData" RIGHT="0" SIGIS="undef" SIGNAME="dot_led_split_0_RData">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="RData"/>
+            <CONNECTION INSTANCE="dot_led_split_0" PORT="RData"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="31" NAME="GData" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_GData">
+        <PORT DIR="I" LEFT="31" NAME="GData" RIGHT="0" SIGIS="undef" SIGNAME="dot_led_split_0_GData">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="GData"/>
+            <CONNECTION INSTANCE="dot_led_split_0" PORT="GData"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="Request" SIGIS="undef" SIGNAME="axi_led_board_0_Request">
+        <PORT DIR="O" LEFT="3" NAME="ADDR_Out" RIGHT="0" SIGIS="undef" SIGNAME="led_board_sout_0_ADDR_Out">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="Request"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="Clear" SIGIS="undef" SIGNAME="led_board_sout_0_Clear">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="Clear"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="3" NAME="Addr_Out" RIGHT="0" SIGIS="undef" SIGNAME="led_board_sout_0_Addr_Out">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="xlconcat_1" PORT="In2"/>
+            <CONNECTION INSTANCE="External_Ports" PORT="dot_led_addr"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="ALE" SIGIS="undef" SIGNAME="led_board_sout_0_ALE">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="xlconcat_0" PORT="In2"/>
-            <CONNECTION INSTANCE="xlconcat_1" PORT="In7"/>
+            <CONNECTION INSTANCE="External_Ports" PORT="dot_led_ale"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="RD" SIGIS="undef" SIGNAME="led_board_sout_0_RD">
+        <PORT DIR="O" NAME="DR" SIGIS="undef" SIGNAME="led_board_sout_0_DR">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="xlconcat_0" PORT="In1"/>
-            <CONNECTION INSTANCE="xlconcat_1" PORT="In6"/>
+            <CONNECTION INSTANCE="External_Ports" PORT="dot_led_dr"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="GD" SIGIS="undef" SIGNAME="led_board_sout_0_GD">
+        <PORT DIR="O" NAME="DG" SIGIS="undef" SIGNAME="led_board_sout_0_DG">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="xlconcat_1" PORT="In3"/>
+            <CONNECTION INSTANCE="External_Ports" PORT="dot_led_dg"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="WE" SIGIS="undef" SIGNAME="led_board_sout_0_WE">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="xlconcat_1" PORT="In5"/>
+            <CONNECTION INSTANCE="External_Ports" PORT="dot_led_we"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="CLK_Out" SIGIS="undef" SIGNAME="led_board_sout_0_CLK_Out">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="xlconcat_0" PORT="In0"/>
-            <CONNECTION INSTANCE="xlconcat_1" PORT="In4"/>
+            <CONNECTION INSTANCE="External_Ports" PORT="dot_led_clk"/>
+            <CONNECTION INSTANCE="xlconcat_0" PORT="In2"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="rd_en" SIGIS="undef" SIGNAME="led_board_sout_0_rd_en">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_generator_0" PORT="rd_en"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="valid" SIGIS="undef" SIGNAME="fifo_generator_0_valid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_generator_0" PORT="valid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="rst" SIGIS="rst" SIGNAME="rst_processing_system7_0_100M_peripheral_reset">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="rst_processing_system7_0_100M" PORT="peripheral_reset"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -316,7 +827,8 @@
         </PORT>
         <PORT DIR="O" NAME="clk_out" SIGIS="undef" SIGNAME="prescaler_0_clk_out">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="led_board_sout_0" PORT="CLK_In"/>
+            <CONNECTION INSTANCE="fifo_generator_0" PORT="rd_clk"/>
+            <CONNECTION INSTANCE="led_board_sout_0" PORT="CLK"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -1454,7 +1966,8 @@
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP0_ACLK"/>
             <CONNECTION INSTANCE="rst_processing_system7_0_100M" PORT="slowest_sync_clk"/>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_aclk"/>
+            <CONNECTION INSTANCE="fifo_generator_0" PORT="wr_clk"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_aclk"/>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="S00_ACLK"/>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="ACLK"/>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_ACLK"/>
@@ -1608,10 +2121,10 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
       <MEMORYMAP>
-        <MEMRANGE ADDRESSBLOCK="S_AXI_reg" BASENAME="C_S_AXI_BASEADDR" BASEVALUE="0x43C00000" HIGHNAME="C_S_AXI_HIGHADDR" HIGHVALUE="0x43C0FFFF" INSTANCE="axi_led_board_0" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
+        <MEMRANGE ADDRESSBLOCK="S_AXI_reg" BASENAME="C_S_AXI_BASEADDR" BASEVALUE="0x43C00000" HIGHNAME="C_S_AXI_HIGHADDR" HIGHVALUE="0x43C00FFF" INSTANCE="axi_dot_led_0" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
       </MEMORYMAP>
       <PERIPHERALS>
-        <PERIPHERAL INSTANCE="axi_led_board_0"/>
+        <PERIPHERAL INSTANCE="axi_dot_led_0"/>
       </PERIPHERALS>
     </MODULE>
     <MODULE FULLNAME="/processing_system7_0_axi_periph" HWVERSION="2.1" INSTANCE="processing_system7_0_axi_periph" IPTYPE="BUS" IS_ENABLE="1" MODCLASS="BUS" MODTYPE="axi_interconnect" VLNV="xilinx.com:ip:axi_interconnect:2.1">
@@ -1933,7 +2446,7 @@
         <PARAMETER NAME="S13_ARB_PRIORITY" VALUE="0"/>
         <PARAMETER NAME="S14_ARB_PRIORITY" VALUE="0"/>
         <PARAMETER NAME="S15_ARB_PRIORITY" VALUE="0"/>
-        <PARAMETER NAME="Component_Name" VALUE="led_board_processing_system7_0_axi_periph_1"/>
+        <PARAMETER NAME="Component_Name" VALUE="led_board_processing_system7_0_axi_periph_2"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="BUS"/>
       </PARAMETERS>
       <PORTS>
@@ -2157,99 +2670,99 @@
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP0_RDATA"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M00_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_awaddr">
+        <PORT DIR="O" LEFT="31" NAME="M00_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_awaddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_awaddr"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_awaddr"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="2" NAME="M00_AXI_awprot" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_awprot">
+        <PORT DIR="O" LEFT="2" NAME="M00_AXI_awprot" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_awprot">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_awprot"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_awprot"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M00_AXI_awvalid" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_awvalid">
+        <PORT DIR="O" NAME="M00_AXI_awvalid" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_awvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_awvalid"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_awvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M00_AXI_awready" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_awready">
+        <PORT DIR="I" NAME="M00_AXI_awready" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_awready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_awready"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_awready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M00_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_wdata">
+        <PORT DIR="O" LEFT="31" NAME="M00_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_wdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_wdata"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_wdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="3" NAME="M00_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_wstrb">
+        <PORT DIR="O" LEFT="3" NAME="M00_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_wstrb">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_wstrb"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_wstrb"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M00_AXI_wvalid" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_wvalid">
+        <PORT DIR="O" NAME="M00_AXI_wvalid" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_wvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_wvalid"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_wvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M00_AXI_wready" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_wready">
+        <PORT DIR="I" NAME="M00_AXI_wready" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_wready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_wready"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_wready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="1" NAME="M00_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_bresp">
+        <PORT DIR="I" LEFT="1" NAME="M00_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_bresp">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_bresp"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_bresp"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M00_AXI_bvalid" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_bvalid">
+        <PORT DIR="I" NAME="M00_AXI_bvalid" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_bvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_bvalid"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_bvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M00_AXI_bready" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_bready">
+        <PORT DIR="O" NAME="M00_AXI_bready" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_bready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_bready"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_bready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M00_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_araddr">
+        <PORT DIR="O" LEFT="31" NAME="M00_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_araddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_araddr"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_araddr"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="2" NAME="M00_AXI_arprot" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_arprot">
+        <PORT DIR="O" LEFT="2" NAME="M00_AXI_arprot" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_arprot">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_arprot"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_arprot"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M00_AXI_arvalid" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_arvalid">
+        <PORT DIR="O" NAME="M00_AXI_arvalid" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_arvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_arvalid"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_arvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M00_AXI_arready" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_arready">
+        <PORT DIR="I" NAME="M00_AXI_arready" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_arready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_arready"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_arready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="31" NAME="M00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_rdata">
+        <PORT DIR="I" LEFT="31" NAME="M00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_rdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_rdata"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_rdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="1" NAME="M00_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_rresp">
+        <PORT DIR="I" LEFT="1" NAME="M00_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_rresp">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_rresp"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_rresp"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M00_AXI_rvalid" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_rvalid">
+        <PORT DIR="I" NAME="M00_AXI_rvalid" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_rvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_rvalid"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_rvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M00_AXI_rready" SIGIS="undef" SIGNAME="axi_led_board_0_s_axi_rready">
+        <PORT DIR="O" NAME="M00_AXI_rready" SIGIS="undef" SIGNAME="axi_dot_led_0_s_axi_rready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_rready"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_rready"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -2335,7 +2848,7 @@
         <PARAMETER NAME="C_NUM_PERP_RST" VALUE="1"/>
         <PARAMETER NAME="C_NUM_INTERCONNECT_ARESETN" VALUE="1"/>
         <PARAMETER NAME="C_NUM_PERP_ARESETN" VALUE="1"/>
-        <PARAMETER NAME="Component_Name" VALUE="led_board_rst_processing_system7_0_100M_1"/>
+        <PARAMETER NAME="Component_Name" VALUE="led_board_rst_processing_system7_0_100M_2"/>
         <PARAMETER NAME="USE_BOARD_FLOW" VALUE="false"/>
         <PARAMETER NAME="RESET_BOARD_INTERFACE" VALUE="Custom"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
@@ -2356,7 +2869,12 @@
         <PORT DIR="I" NAME="dcm_locked" SIGIS="undef"/>
         <PORT DIR="O" NAME="mb_reset" SIGIS="rst"/>
         <PORT DIR="O" LEFT="0" NAME="bus_struct_reset" RIGHT="0" SIGIS="rst"/>
-        <PORT DIR="O" LEFT="0" NAME="peripheral_reset" RIGHT="0" SIGIS="rst"/>
+        <PORT DIR="O" LEFT="0" NAME="peripheral_reset" RIGHT="0" SIGIS="rst" SIGNAME="rst_processing_system7_0_100M_peripheral_reset">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_generator_0" PORT="rst"/>
+            <CONNECTION INSTANCE="led_board_sout_0" PORT="rst"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="O" LEFT="0" NAME="interconnect_aresetn" RIGHT="0" SIGIS="rst" SIGNAME="rst_processing_system7_0_100M_interconnect_aresetn">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="ARESETN"/>
@@ -2364,7 +2882,7 @@
         </PORT>
         <PORT DIR="O" LEFT="0" NAME="peripheral_aresetn" RIGHT="0" SIGIS="rst" SIGNAME="rst_processing_system7_0_100M_peripheral_aresetn">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="s_axi_aresetn"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="s_axi_aresetn"/>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="S00_ARESETN"/>
             <CONNECTION INSTANCE="processing_system7_0_axi_periph" PORT="M00_ARESETN"/>
           </CONNECTIONS>
@@ -2375,7 +2893,7 @@
     <MODULE FULLNAME="/xlconcat_0" HWVERSION="2.1" INSTANCE="xlconcat_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlconcat" VLNV="xilinx.com:ip:xlconcat:2.1">
       <DOCUMENTS/>
       <PARAMETERS>
-        <PARAMETER NAME="IN0_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN0_WIDTH" VALUE="4"/>
         <PARAMETER NAME="IN1_WIDTH" VALUE="1"/>
         <PARAMETER NAME="IN2_WIDTH" VALUE="1"/>
         <PARAMETER NAME="IN3_WIDTH" VALUE="1"/>
@@ -2407,35 +2925,30 @@
         <PARAMETER NAME="IN29_WIDTH" VALUE="1"/>
         <PARAMETER NAME="IN30_WIDTH" VALUE="1"/>
         <PARAMETER NAME="IN31_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="dout_width" VALUE="4"/>
-        <PARAMETER NAME="NUM_PORTS" VALUE="4"/>
+        <PARAMETER NAME="dout_width" VALUE="6"/>
+        <PARAMETER NAME="NUM_PORTS" VALUE="3"/>
         <PARAMETER NAME="Component_Name" VALUE="led_board_xlconcat_0_0"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT DIR="I" LEFT="0" NAME="In0" RIGHT="0" SIGIS="undef" SIGNAME="led_board_sout_0_CLK_Out">
+        <PORT DIR="I" LEFT="3" NAME="In0" RIGHT="0" SIGIS="undef" SIGNAME="dot_led_split_0_ADDR">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="dot_led_split_0" PORT="ADDR"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="In1" RIGHT="0" SIGIS="undef" SIGNAME="fifo_generator_0_valid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="fifo_generator_0" PORT="valid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="In2" RIGHT="0" SIGIS="undef" SIGNAME="led_board_sout_0_CLK_Out">
           <CONNECTIONS>
             <CONNECTION INSTANCE="led_board_sout_0" PORT="CLK_Out"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="0" NAME="In1" RIGHT="0" SIGIS="undef" SIGNAME="led_board_sout_0_RD">
+        <PORT DIR="O" LEFT="5" NAME="dout" RIGHT="0" SIGIS="undef" SIGNAME="xlconcat_0_dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="led_board_sout_0" PORT="RD"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="0" NAME="In2" RIGHT="0" SIGIS="undef" SIGNAME="led_board_sout_0_ALE">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="led_board_sout_0" PORT="ALE"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="0" NAME="In3" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_Request">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="Request"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="3" NAME="dout" RIGHT="0" SIGIS="undef" SIGNAME="xlconcat_0_dout">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="External_Ports" PORT="leds_4bits_tri_o"/>
+            <CONNECTION INSTANCE="External_Ports" PORT="leds_6bits_tri_o"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -2444,9 +2957,9 @@
     <MODULE FULLNAME="/xlconcat_1" HWVERSION="2.1" INSTANCE="xlconcat_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlconcat" VLNV="xilinx.com:ip:xlconcat:2.1">
       <DOCUMENTS/>
       <PARAMETERS>
-        <PARAMETER NAME="IN0_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="IN1_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="IN2_WIDTH" VALUE="4"/>
+        <PARAMETER NAME="IN0_WIDTH" VALUE="4"/>
+        <PARAMETER NAME="IN1_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="IN2_WIDTH" VALUE="32"/>
         <PARAMETER NAME="IN3_WIDTH" VALUE="1"/>
         <PARAMETER NAME="IN4_WIDTH" VALUE="1"/>
         <PARAMETER NAME="IN5_WIDTH" VALUE="1"/>
@@ -2476,55 +2989,30 @@
         <PARAMETER NAME="IN29_WIDTH" VALUE="1"/>
         <PARAMETER NAME="IN30_WIDTH" VALUE="1"/>
         <PARAMETER NAME="IN31_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="dout_width" VALUE="11"/>
-        <PARAMETER NAME="NUM_PORTS" VALUE="8"/>
+        <PARAMETER NAME="dout_width" VALUE="68"/>
+        <PARAMETER NAME="NUM_PORTS" VALUE="3"/>
         <PARAMETER NAME="Component_Name" VALUE="led_board_xlconcat_1_0"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT DIR="I" LEFT="0" NAME="In0" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_SE">
+        <PORT DIR="I" LEFT="3" NAME="In0" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_ADDR">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="SE"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="ADDR"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="0" NAME="In1" RIGHT="0" SIGIS="undef" SIGNAME="axi_led_board_0_RAM_Sel">
+        <PORT DIR="I" LEFT="31" NAME="In1" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_GData">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_led_board_0" PORT="RAM_Sel"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="GData"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="3" NAME="In2" RIGHT="0" SIGIS="undef" SIGNAME="led_board_sout_0_Addr_Out">
+        <PORT DIR="I" LEFT="31" NAME="In2" RIGHT="0" SIGIS="undef" SIGNAME="axi_dot_led_0_RData">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="led_board_sout_0" PORT="Addr_Out"/>
+            <CONNECTION INSTANCE="axi_dot_led_0" PORT="RData"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="0" NAME="In3" RIGHT="0" SIGIS="undef" SIGNAME="led_board_sout_0_GD">
+        <PORT DIR="O" LEFT="67" NAME="dout" RIGHT="0" SIGIS="undef" SIGNAME="xlconcat_1_dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="led_board_sout_0" PORT="GD"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="0" NAME="In4" RIGHT="0" SIGIS="undef" SIGNAME="led_board_sout_0_CLK_Out">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="led_board_sout_0" PORT="CLK_Out"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="0" NAME="In5" RIGHT="0" SIGIS="undef" SIGNAME="led_board_sout_0_WE">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="led_board_sout_0" PORT="WE"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="0" NAME="In6" RIGHT="0" SIGIS="undef" SIGNAME="led_board_sout_0_RD">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="led_board_sout_0" PORT="RD"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="0" NAME="In7" RIGHT="0" SIGIS="undef" SIGNAME="led_board_sout_0_ALE">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="led_board_sout_0" PORT="ALE"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="10" NAME="dout" RIGHT="0" SIGIS="undef" SIGNAME="xlconcat_1_dout">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="External_Ports" PORT="led_data_o"/>
+            <CONNECTION INSTANCE="fifo_generator_0" PORT="din"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
